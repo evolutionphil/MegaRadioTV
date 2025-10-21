@@ -1,6 +1,21 @@
 /* Splash Screen Styles */
 #splash-page {
-    background: linear-gradient(135deg, #1A1A2E 0%, #16213E 100%);
+    background: #0A0E27;
+    background: radial-gradient(ellipse at center, #1a1f3a 0%, #0A0E27 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Background decoration */
+#splash-page::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(78, 205, 196, 0.1) 0%, transparent 70%);
+    animation: bgPulse 8s ease-in-out infinite;
 }
 
 .splash-container {
@@ -10,48 +25,60 @@
     align-items: center;
     height: 100%;
     text-align: center;
+    position: relative;
+    z-index: 1;
 }
 
 .splash-logo {
-    width: 500px;
-    height: auto;
-    margin-bottom: var(--spacing-xl);
-    animation: logoFadeIn 1s ease-in-out;
+    width: 400px;
+    height: 400px;
+    object-fit: contain;
+    margin-bottom: 60px;
+    animation: logoFadeIn 1.2s ease-out;
+    filter: drop-shadow(0 0 40px rgba(78, 205, 196, 0.3));
 }
 
 .splash-title {
-    font-size: var(--font-size-xl);
-    font-weight: bold;
-    margin-bottom: var(--spacing-lg);
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    font-size: 96px;
+    font-weight: 900;
+    letter-spacing: 8px;
+    margin-bottom: 30px;
+    background: linear-gradient(135deg, #4ECDC4 0%, #FF6B6B 50%, #FFE66D 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: titleSlideUp 1s ease-in-out 0.3s both;
+    text-transform: uppercase;
+    animation: titleSlideUp 1s ease-out 0.3s both;
+    text-shadow: 0 0 60px rgba(78, 205, 196, 0.5);
 }
 
 .splash-subtitle {
-    font-size: var(--font-size-lg);
-    color: var(--text-secondary);
-    animation: subtitleFadeIn 1s ease-in-out 0.6s both;
+    font-size: 42px;
+    color: #B8B8B8;
+    font-weight: 300;
+    letter-spacing: 2px;
+    animation: subtitleFadeIn 1s ease-out 0.6s both;
+    margin-bottom: 80px;
 }
 
 .splash-loading {
-    margin-top: var(--spacing-xl);
+    margin-top: 40px;
 }
 
 .loading-dots {
     display: flex;
-    gap: var(--spacing-sm);
+    gap: 20px;
     justify-content: center;
+    align-items: center;
 }
 
 .loading-dot {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
-    background-color: var(--primary-color);
-    animation: dotPulse 1.5s ease-in-out infinite;
+    background: linear-gradient(135deg, #4ECDC4, #FF6B6B);
+    animation: dotPulse 1.4s ease-in-out infinite;
+    box-shadow: 0 0 20px rgba(78, 205, 196, 0.6);
 }
 
 .loading-dot:nth-child(2) {
@@ -62,44 +89,60 @@
     animation-delay: 0.4s;
 }
 
-@keyframes logoFadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-    to {
-        opacity: 1;
+/* Animations */
+@keyframes bgPulse {
+    0%, 100% {
+        opacity: 0.3;
         transform: scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.1);
+    }
+}
+
+@keyframes logoFadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
     }
 }
 
 @keyframes titleSlideUp {
-    from {
+    0% {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(40px);
+        letter-spacing: 20px;
     }
-    to {
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        letter-spacing: 8px;
+    }
+}
+
+@keyframes subtitleFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-@keyframes subtitleFadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
 @keyframes dotPulse {
     0%, 100% {
-        opacity: 0.3;
+        opacity: 0.4;
         transform: scale(0.8);
     }
     50% {
         opacity: 1;
-        transform: scale(1.2);
+        transform: scale(1.3);
     }
 }

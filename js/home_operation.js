@@ -1,16 +1,17 @@
 // Home Page Controller - Enhanced for TV Navigation
 var home_page = (function() {
-    var current_category_index = 0;
+    var current_menu_index = 0;
     var current_station_index = 0;
-    var categories = ['All', 'Music', 'News', 'Sports', 'Talk', 'Culture'];
+    var menu_items = ['discover', 'genres', 'search', 'favorites', 'records', 'settings'];
+    var active_view = 'discover';
     var filtered_stations = [];
-    var focus_area = 'category';
-    var grid_cols = 4;
+    var focus_area = 'menu';
+    var grid_cols = 6;
     
     function init() {
         console.log('Home page initialized');
         loadStations();
-        renderCategories();
+        setupMenuHandlers();
         updateFocus();
     }
     
@@ -40,33 +41,39 @@ var home_page = (function() {
             ];
             saveToStorage('stations', stations);
         }
-        
-        filterStations('All');
     }
     
-    function filterStations(category) {
-        if (category === 'All') {
-            filtered_stations = stations;
-        } else {
-            filtered_stations = stations.filter(function(s) {
-                return s.category === category;
-            });
+    function setupMenuHandlers() {
+        var menuItems = document.querySelectorAll('.menu-item');
+        for (var i = 0; i < menuItems.length; i++) {
+            (function(index, item) {
+                item.addEventListener('click', function() {
+                    handleMenuClick(index);
+                });
+            })(i, menuItems[i]);
         }
+        
+        filtered_stations = stations;
         renderStations();
     }
     
-    function renderCategories() {
-        var list = document.getElementById('category-list');
-        if (!list) return;
+    function handleMenuClick(index) {
+        current_menu_index = index;
+        var menu = menu_items[index];
+        active_view = menu;
         
-        list.innerHTML = '';
-        for (var i = 0; i < categories.length; i++) {
-            var li = document.createElement('li');
-            li.className = 'category-item';
-            li.textContent = categories[i];
-            li.setAttribute('data-index', i);
-            list.appendChild(li);
+        if (menu === 'discover') {
+            filtered_stations = stations;
+        } else if (menu === 'genres') {
+            filtered_stations = stations.filter(function(s) { return s.category === 'Music'; });
+        } else if (menu === 'favorites') {
+            filtered_stations = loadFromStorage('favorites') || [];
+        } else {
+            filtered_stations = stations;
         }
+        
+        renderStations();
+        updateFocus();
     }
     
     function renderStations() {
@@ -82,7 +89,7 @@ var home_page = (function() {
             card.innerHTML = 
                 '<img src="' + (station.logo || 'images/def_image.jpg') + '" class="station-logo" alt="' + station.name + '">' +
                 '<div class="station-name">' + station.name + '</div>' +
-                '<div class="station-info">' + station.category + '</div>';
+                '<div class="station-category">' + station.category + '</div>';
             grid.appendChild(card);
         }
         
@@ -91,19 +98,18 @@ var home_page = (function() {
     }
     
     function updateFocus() {
-        var categoryItems = document.querySelectorAll('.category-item');
+        var menuItems = document.querySelectorAll('.menu-item');
         var stationCards = document.querySelectorAll('.station-card');
         
-        for (var i = 0; i < categoryItems.length; i++) {
-            categoryItems[i].classList.remove('active');
+        for (var i = 0; i < menuItems.length; i++) {
+            menuItems[i].classList.remove('active');
         }
         for (var j = 0; j < stationCards.length; j++) {
             stationCards[j].classList.remove('active');
         }
         
-        if (focus_area === 'category' && categoryItems[current_category_index]) {
-            categoryItems[current_category_index].classList.add('active');
-            scrollIntoViewIfNeeded(categoryItems[current_category_index]);
+        if (focus_area === 'menu' && menuItems[current_menu_index]) {
+            menuItems[current_menu_index].classList.add('active');
         } else if (focus_area === 'station' && stationCards[current_station_index]) {
             stationCards[current_station_index].classList.add('active');
             scrollIntoViewIfNeeded(stationCards[current_station_index]);
@@ -127,26 +133,26 @@ var home_page = (function() {
     }
     
     function keyDown(e) {
-        if (focus_area === 'category') {
-            handleCategoryKeys(e);
+        if (focus_area === 'menu') {
+            handleMenuKeys(e);
         } else if (focus_area === 'station') {
             handleStationKeys(e);
         }
     }
     
-    function handleCategoryKeys(e) {
+    function handleMenuKeys(e) {
         var moved = false;
         
         if (e.keyCode === keys.UP) {
-            current_category_index--;
-            if (current_category_index < 0) {
-                current_category_index = categories.length - 1;
+            current_menu_index--;
+            if (current_menu_index < 0) {
+                current_menu_index = menu_items.length - 1;
             }
             moved = true;
         } else if (e.keyCode === keys.DOWN) {
-            current_category_index++;
-            if (current_category_index >= categories.length) {
-                current_category_index = 0;
+            current_menu_index++;
+            if (current_menu_index >= menu_items.length) {
+                current_menu_index = 0;
             }
             moved = true;
         } else if (e.keyCode === keys.RIGHT) {
@@ -156,7 +162,7 @@ var home_page = (function() {
                 moved = true;
             }
         } else if (e.keyCode === keys.ENTER) {
-            filterStations(categories[current_category_index]);
+            handleMenuClick(current_menu_index);
             if (filtered_stations.length > 0) {
                 focus_area = 'station';
                 current_station_index = 0;
@@ -175,7 +181,7 @@ var home_page = (function() {
         
         if (e.keyCode === keys.LEFT) {
             if (current_station_index % grid_cols === 0) {
-                focus_area = 'category';
+                focus_area = 'menu';
                 updateFocus();
                 return;
             }

@@ -53,6 +53,7 @@ MegaRadioTV is a radio streaming application for Samsung Tizen and LG webOS Smar
 ├── images/                       # All image assets
 │   ├── app_launcher.png          # TV launcher icon
 │   ├── logo.png                  # App logo
+│   ├── bg_disco.png              # Home page background (from Figma)
 │   └── def_image.jpg             # Default station image
 │
 ├── webOSTVjs-1.2.0/              # LG webOS SDK
@@ -63,7 +64,7 @@ MegaRadioTV is a radio streaming application for Samsung Tizen and LG webOS Smar
 
 ## Application Flow
 1. **Splash Screen** - Auto-displays for 3 seconds on app start
-2. **Home Screen** - Main interface with category sidebar and station grid
+2. **Home Screen** - Main interface with left icon menu and station grid (Figma design implemented)
 3. **Player Screen** - Radio streaming (to be implemented)
 
 ## Features
@@ -71,12 +72,13 @@ MegaRadioTV is a radio streaming application for Samsung Tizen and LG webOS Smar
 - ✅ Platform detection (Samsung/LG/Web)
 - ✅ Remote control key handling (arrows, OK, RETURN, media keys)
 - ✅ Focus management for TV navigation
-- ✅ Category filtering
-- ✅ Station grid display
+- ✅ Home page with Figma design (disco background, left menu, 6-column station grid)
+- ✅ Station grid display with white cards (200x264px)
 - ✅ LocalStorage persistence
+- ✅ Menu-based navigation (Discover, Genres, Search, Favorites, Records, Settings)
 - ⏳ M3U playlist parsing
 - ⏳ Audio streaming
-- ⏳ Favorites management
+- ⏳ Favorites functionality
 
 ## Development Setup
 **Server**: Python HTTP Server
@@ -114,14 +116,21 @@ Configured for autoscale deployment.
 - `npm run sm:pack` - Create .wgt package
 
 ## Development Status
-**Current**: Base structure complete, matching FLIX-IPTV architecture
+**Current**: Home page Figma design implemented with exact 1:1 layout
 **Next**: 
-1. Match Figma design for splash screen
-2. Implement audio player
-3. Add M3U playlist loading
-4. Implement favorites functionality
+1. Implement audio player
+2. Add M3U playlist loading
+3. Implement favorites functionality
+4. Match Figma design for splash screen (if different from current)
 
 ## Recent Changes
+- 2025-10-21: Implemented Figma design for home page (1:1 match)
+  - Downloaded background image from Figma API (disco crowd scene)
+  - Created exact layout: left menu (98px), logo top-left, 6-column station grid
+  - Station cards: 200x264px white cards with 132x132px logos
+  - Menu items: Discover, Genres, Search, Favorites, Records, Settings with icons
+  - Fixed grid layout (repeat(6, 200px)) to match JavaScript navigation (grid_cols = 6)
+  - Used system fonts instead of Google Fonts for TV compatibility
 - 2025-10-21: Restructured to match FLIX-IPTV technology stack
 - 2025-10-21: Downloaded and vendored all libraries locally (jQuery, Bootstrap, Font Awesome)
 - 2025-10-21: Created SPA structure with splash, home, and player pages

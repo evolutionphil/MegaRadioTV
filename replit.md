@@ -1,60 +1,130 @@
-# MegaRadioTV - Samsung Tizen TV Application
+# MegaRadioTV - Samsung Tizen & LG webOS TV Application
 
 ## Overview
-This is a basic Samsung Tizen TV application template originally created with the Tizen Web IDE. It's a static HTML/CSS/JavaScript web application designed for Samsung Smart TVs. The app demonstrates basic Tizen TV functionality including remote control key handling and a simple clock feature.
+MegaRadioTV is a radio streaming application for Samsung Tizen and LG webOS Smart TVs. Built using the same technology stack and architecture as FLIX-IPTV, this is a Single Page Application (SPA) that provides radio station browsing and streaming capabilities optimized for TV remote control navigation.
 
 ## Project Type
-- **Platform**: Samsung Tizen TV
-- **Technology**: Static HTML/CSS/JavaScript
+- **Platforms**: Samsung Tizen TV & LG webOS TV
+- **Architecture**: Single Page Application (SPA)
+- **Technology**: HTML5, CSS3, JavaScript (ES5/ES6, browser-native, no transpilation)
 - **Server**: Python HTTP Server (for development)
+
+## Core Technologies
+### Frontend Libraries (All Vendored Locally - NO CDN)
+- **jQuery 3.4.1** - DOM manipulation & AJAX
+- **Bootstrap 4.4.1** - CSS framework & grid system
+- **Font Awesome 5.12.1** - Icons
+- **Moment.js** - Date/time formatting
+
+### Platform SDKs
+- **webOSTVjs-1.2.0** - LG webOS JavaScript library
+- **Samsung Tizen WebAPIs** - Built into Tizen environment
+- **Samsung CAPH Framework** - TV UI helpers (to be added)
 
 ## Project Structure
 ```
 .
-├── index.html          # Main HTML page
-├── config.xml          # Tizen app configuration
-├── icon.png            # App icon
-├── MegaRadioTV.wgt    # Tizen widget package (pre-built)
+├── index.html                    # Single entry point (all pages in one file)
+├── appinfo.json                  # LG webOS config
+├── config.xml                    # Samsung Tizen config
+├── package.json                  # Node.js build scripts
+│
 ├── css/
-│   └── style.css       # Application styles
+│   ├── libs/                     # Vendor CSS
+│   │   ├── bootstrap4.4.1.min.css
+│   │   └── fontawesome-all.min.css
+│   ├── variables.css             # CSS custom properties (theme)
+│   ├── style.css                 # Global styles
+│   ├── splash.css                # Splash screen
+│   ├── homepage.css              # Home page
+│   └── responsive.css            # Media queries for different resolutions
+│
 ├── js/
-│   └── main.js         # Main JavaScript logic
-└── images/
-    └── tizen_32.png    # Tizen logo
+│   ├── libs/                     # Vendor JavaScript
+│   │   ├── jquery-3.4.1.min.js
+│   │   ├── bootstrap.min.js
+│   │   └── moment.min.js
+│   ├── main.js                   # App initialization & platform detection
+│   ├── common.js                 # Shared utilities & M3U parser
+│   ├── keyTizen.js               # Remote control key mapping
+│   ├── splash_operation.js       # Splash screen controller
+│   └── home_operation.js         # Homepage controller
+│
+├── images/                       # All image assets
+│   ├── app_launcher.png          # TV launcher icon
+│   ├── logo.png                  # App logo
+│   └── def_image.jpg             # Default station image
+│
+├── webOSTVjs-1.2.0/              # LG webOS SDK
+│   └── webOSTV.js
+│
+└── tools/                        # Build scripts (to be added)
 ```
 
+## Application Flow
+1. **Splash Screen** - Auto-displays for 3 seconds on app start
+2. **Home Screen** - Main interface with category sidebar and station grid
+3. **Player Screen** - Radio streaming (to be implemented)
+
 ## Features
-- Basic Tizen TV template with navigation
-- Remote control key event handling (arrows, OK, RETURN buttons)
-- Clock display functionality
-- Responsive layout optimized for TV screens (1080x1920)
-- TV-specific event handling (visibility changes, hardware keys)
+- ✅ SPA architecture with page-based navigation
+- ✅ Platform detection (Samsung/LG/Web)
+- ✅ Remote control key handling (arrows, OK, RETURN, media keys)
+- ✅ Focus management for TV navigation
+- ✅ Category filtering
+- ✅ Station grid display
+- ✅ LocalStorage persistence
+- ⏳ M3U playlist parsing
+- ⏳ Audio streaming
+- ⏳ Favorites management
 
 ## Development Setup
-The app runs on a simple Python HTTP server:
+**Server**: Python HTTP Server
 - **Port**: 5000
-- **Host**: 0.0.0.0 (accessible from anywhere)
-- **Server**: Python's built-in HTTP server
+- **Host**: 0.0.0.0 (accessible from network)
 
-## Running the App
-The workflow is already configured and runs automatically. The server serves static files from the project root.
+**Workflow**: Auto-starts on project load
+
+## Key Patterns
+### Single Page Application
+All pages are hidden `<div>` elements in index.html. JavaScript shows/hides pages using `showPage()` function.
+
+### Platform Detection
+```javascript
+var platform = 'samsung';  // or 'lg' or 'web'
+if (typeof webOS !== 'undefined') platform = 'lg';
+else if (typeof tizen !== 'undefined') platform = 'samsung';
+```
+
+### Remote Control Navigation
+- Key codes mapped in `keyTizen.js`
+- Focus management with `.active` class
+- CSS transitions for visual feedback
+
+### State Management
+- Global variables in `common.js`
+- LocalStorage with platform-specific prefix
+- No external state management libraries
 
 ## Deployment
-Configured for autoscale deployment using Python's HTTP server. The app is a static website with no backend requirements.
+Configured for autoscale deployment.
+**Build Scripts** (in package.json):
+- `npm run lg:package` - Package for LG webOS
+- `npm run sm:build` - Build for Samsung Tizen
+- `npm run sm:pack` - Create .wgt package
 
-## Key Technologies
-- **HTML5**: Semantic markup
-- **CSS3**: Custom styling for TV screens
-- **JavaScript**: Vanilla JS for interactivity
-- **Tizen Web APIs**: TV-specific functionality (requires actual Tizen TV environment)
-
-## Notes
-- The app includes Tizen-specific APIs (like `tizen.application`) that will only work on actual Tizen TV devices
-- For web preview, these APIs are inactive but the core HTML/CSS/JS functionality works
-- The `.wgt` file is a pre-packaged Tizen widget for deployment to Samsung TVs
-- Remote control key codes are mapped in `main.js` for TV navigation
+## Development Status
+**Current**: Base structure complete, matching FLIX-IPTV architecture
+**Next**: 
+1. Match Figma design for splash screen
+2. Implement audio player
+3. Add M3U playlist loading
+4. Implement favorites functionality
 
 ## Recent Changes
-- 2025-10-21: Imported from GitHub and configured for Replit environment
-- 2025-10-21: Set up Python HTTP server workflow on port 5000
-- 2025-10-21: Configured autoscale deployment
+- 2025-10-21: Restructured to match FLIX-IPTV technology stack
+- 2025-10-21: Downloaded and vendored all libraries locally (jQuery, Bootstrap, Font Awesome)
+- 2025-10-21: Created SPA structure with splash, home, and player pages
+- 2025-10-21: Implemented platform detection and key handling
+- 2025-10-21: Created config files for both LG webOS and Samsung Tizen
+- 2025-10-21: Set up build scripts in package.json

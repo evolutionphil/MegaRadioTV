@@ -1,0 +1,16 @@
+{
+  "vendor": "Mega Radio",
+  "largeIcon": "images/app_launcher.png",
+  "icon": "images/logo.png",
+  "main": "index.html",
+  "id": "com.megaradio.tv",
+  "title": "Mega Radio TV",
+  "type": "web",
+  "resolution": "1920x1080",
+  "version": "1.0.0",
+  "disableBackHistoryAPI": true,
+  "requiredPermissions": [
+    "group1",
+    "group2"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "mega-radio-tv",
+  "version": "1.0.0",
+  "description": "Mega Radio TV application for Samsung Tizen and LG webOS",
+  "main": "index.html",
+  "scripts": {
+    "start": "node server.js",
+    "lg:package": "node tools/package-webos-app.js",
+    "sm:build": "rimraf .buildResult && tizen build-web -e 'node_modules/*' -e '.git/*' -- .",
+    "sm:pack": "cd .buildResult && tizen package -t wgt -s megaradiotv -- ."
+  },
+  "dependencies": {
+    "archiver": "^7.0.1",
+    "rimraf": "^6.0.1"
+  },
+  "devDependencies": {
+    "@webos-tools/cli": "^3.2.1"
+  },
+  "author": "Mega Radio TV",
+  "license": "MIT"
+}

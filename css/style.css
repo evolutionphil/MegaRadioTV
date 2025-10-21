@@ -1,75 +1,181 @@
+/* Global Styles */
 * {
-    font-family: Lucida Sans, Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    margin: 50px auto;
-    background-color: #ffffff;
+    font-family: var(--font-family-base);
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    overflow: hidden;
+    width: 1920px;
+    height: 1080px;
 }
 
-header h1 {
-    font-size: 108px;
-    margin: 0px;
+/* Hide default focus outline, use custom styles */
+*:focus {
+    outline: none;
 }
 
-header h2 {
-    font-size: 54px;
-    margin: 0px;
-    color: #888;
-    font-style: italic;
+/* Page container */
+.page {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
 }
 
-nav ul {
-    list-style: none;
-    padding: 20px;
+.page.active {
     display: block;
-    clear: right;
-    background-color: #666;
-    padding-left: 4px;
-    height: 48px;
 }
 
-nav ul li {
-    display: inline;
-    padding: 0px 20px 5px 10px;
-    border-right: 1px solid #ccc;
+/* Common UI Elements */
+.container {
+    padding: var(--spacing-lg);
+    width: 100%;
+    height: 100%;
 }
 
-nav ul li a {
-    color: #EFD3D3;
-    text-decoration: none;
-    font-size: 39px;
+.title {
+    font-size: var(--font-size-xl);
     font-weight: bold;
+    margin-bottom: var(--spacing-md);
 }
 
-nav ul li a:hover {
-    color: #fff;
+.subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-lg);
 }
 
-article > header h1 {
-    font-size: 60px;
-    margin-left: 14px;
+/* Button Styles */
+.btn {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    font-size: var(--font-size-md);
+    border: none;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    opacity: 0.8;
 }
 
-article > header h1 a {
-    color: #993333;
+.btn:hover,
+.btn.active {
+    opacity: 1;
+    transform: scale(var(--focus-scale));
+    box-shadow: var(--focus-shadow);
 }
 
-article > header h1 img {
-    vertical-align:middle;
+/* List Styles */
+.list {
+    list-style: none;
 }
 
-article > section header h1 {
-    font-size: 48px;
+.list-item {
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+    background-color: var(--surface-color);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-normal);
+    opacity: 0.6;
 }
 
-article p {
-    clear: both;
+.list-item.active {
+    opacity: 1;
+    transform: scale(var(--focus-scale));
+    box-shadow: var(--focus-shadow);
+    background: linear-gradient(90deg, var(--primary-color) 0%, transparent 100%);
 }
 
-footer p {
+/* Grid Layout */
+.grid {
+    display: grid;
+    gap: var(--spacing-md);
+}
+
+.grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+/* Card Styles */
+.card {
+    background-color: var(--surface-color);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    transition: all var(--transition-normal);
+}
+
+.card.active {
+    transform: scale(var(--focus-scale));
+    box-shadow: var(--focus-shadow);
+}
+
+/* Loader */
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+#loader.show {
+    display: flex;
+}
+
+.loader-spinner {
+    width: 80px;
+    height: 80px;
+    border: 8px solid var(--surface-color);
+    border-top: 8px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Utility Classes */
+.text-center {
     text-align: center;
-    font-size: 36px;
-    color: #888;
-    margin-top: 30px;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.fade-in {
+    animation: fadeIn var(--transition-normal);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }

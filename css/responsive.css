@@ -1,0 +1,72 @@
+/* Responsive adjustments for different TV resolutions */
+
+/* Full HD 1920x1080 (default) */
+@media (max-width: 1920px) and (max-height: 1080px) {
+    body {
+        font-size: 16px;
+    }
+}
+
+/* 4K Ultra HD 3840x2160 */
+@media (min-width: 3840px) and (min-height: 2160px) {
+    :root {
+        --font-size-xs: 48px;
+        --font-size-sm: 64px;
+        --font-size-md: 80px;
+        --font-size-lg: 108px;
+        --font-size-xl: 144px;
+        
+        --spacing-xs: 16px;
+        --spacing-sm: 32px;
+        --spacing-md: 48px;
+        --spacing-lg: 64px;
+        --spacing-xl: 96px;
+    }
+    
+    body {
+        width: 3840px;
+        height: 2160px;
+    }
+}
+
+/* HD 1280x720 */
+@media (max-width: 1280px) and (max-height: 720px) {
+    :root {
+        --font-size-xs: 16px;
+        --font-size-sm: 21px;
+        --font-size-md: 27px;
+        --font-size-lg: 36px;
+        --font-size-xl: 48px;
+        
+        --spacing-xs: 5px;
+        --spacing-sm: 11px;
+        --spacing-md: 16px;
+        --spacing-lg: 21px;
+        --spacing-xl: 32px;
+    }
+    
+    body {
+        width: 1280px;
+        height: 720px;
+    }
+    
+    .home-logo {
+        height: 53px;
+    }
+    
+    .station-logo {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+/* Hide scrollbars but keep functionality */
+*::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+* {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}

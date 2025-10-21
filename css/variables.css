@@ -1,0 +1,42 @@
+/* CSS Custom Properties (Theme Variables) */
+:root {
+    /* Colors */
+    --primary-color: #FF6B6B;
+    --secondary-color: #4ECDC4;
+    --accent-color: #FFE66D;
+    --background-color: #1A1A2E;
+    --surface-color: #16213E;
+    --text-primary: #FFFFFF;
+    --text-secondary: #B8B8B8;
+    --text-disabled: #666666;
+    
+    /* Spacing */
+    --spacing-xs: 8px;
+    --spacing-sm: 16px;
+    --spacing-md: 24px;
+    --spacing-lg: 32px;
+    --spacing-xl: 48px;
+    
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    
+    /* Typography */
+    --font-family-base: 'Lucida Sans', Arial, Helvetica, sans-serif;
+    --font-size-xs: 24px;
+    --font-size-sm: 32px;
+    --font-size-md: 40px;
+    --font-size-lg: 54px;
+    --font-size-xl: 72px;
+    
+    /* Transitions */
+    --transition-fast: 0.15s ease-in-out;
+    --transition-normal: 0.3s ease-in-out;
+    --transition-slow: 0.5s ease-in-out;
+    
+    /* Focus */
+    --focus-scale: 1.1;
+    --focus-shadow: 0 0 20px rgba(255, 107, 107, 0.6);
+}

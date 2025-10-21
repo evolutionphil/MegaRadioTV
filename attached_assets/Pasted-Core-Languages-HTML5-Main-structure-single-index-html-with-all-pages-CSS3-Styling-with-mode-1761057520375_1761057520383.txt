@@ -1,0 +1,573 @@
+Core Languages:
+HTML5 - Main structure (single index.html with all pages)
+CSS3 - Styling with modern features (flexbox, grid, animations)
+JavaScript ES5/ES6 - Core logic (no transpilation, browser-native)
+Frontend Libraries (All Vendored Locally):
+├── jQuery 3.4.1              → DOM manipulation & AJAX
+├── Bootstrap 4.4.1           → CSS framework & grid system
+├── Font Awesome 5.12.1       → Icons
+├── Moment.js                 → Date/time formatting
+├── Slick Carousel            → Content sliders
+├── Rangeslider.js            → Custom range inputs
+├── Photobox                  → Image gallery/lightbox
+├── LazyLoad                  → Lazy loading images
+├── Velocity.js               → Hardware-accelerated animations
+├── Hammer.js                 → Touch gestures (via CAPH)
+└── Magic Check               → Custom checkboxes/radio buttons
+Platform-Specific SDKs:
+Samsung CAPH Framework - Located in js/libs/caph/ (UI helpers for Tizen)
+LG webOS SDK - @webos-tools/cli (npm package for packaging)
+Samsung Tizen CLI - External tool for building .wgt packages
+Build Tools:
+{
+  "dependencies": {
+    "archiver": "^7.0.1",      // Creates ZIP archives
+    "rimraf": "^6.0.1"         // Cross-platform rm -rf
+  },
+  "devDependencies": {
+    "@webos-tools/cli": "^3.2.1"  // LG packaging
+  }
+}
+2️⃣ PROJECT STRUCTURE
+FLIX-IPTV/
+│
+├── index.html                    ← Single entry point (all pages in one file)
+│
+├── appinfo.json                  ← LG webOS config (app ID, permissions, version)
+├── config.xml                    ← Samsung Tizen config (manifest)
+├── package.json                  ← Node.js build scripts
+│
+├── css/
+│   ├── libs/                     ← Vendor CSS (Bootstrap, Font Awesome, etc.)
+│   │   ├── bootstrap4.4.1.min.css
+│   │   ├── fontawesome-5.12.1/
+│   │   │   ├── css/all.min.css
+│   │   │   └── webfonts/         ← Font files
+│   │   ├── slick.css
+│   │   ├── photobox.css
+│   │   └── rangeslider.css
+│   │
+│   ├── style.css                 ← Global styles
+│   ├── variables.css             ← CSS custom properties (theme colors)
+│   ├── homepage.css              ← Page-specific styles
+│   ├── channel_page.css
+│   ├── login.css
+│   ├── movie_grid.css
+│   ├── vod_series_summary.css
+│   ├── player_page.css
+│   ├── search_page.css
+│   ├── youtube_page.css
+│   ├── storage_page.css
+│   ├── guide.css
+│   ├── catchup.css
+│   ├── subtitle.css
+│   ├── rating.css
+│   ├── loader.css
+│   ├── gallary.css
+│   └── responsive.css            ← Media queries
+│
+├── js/
+│   ├── libs/                     ← Vendor JavaScript
+│   │   ├── jquery-3.4.1.min.js
+│   │   ├── bootstrap.min.js
+│   │   ├── moment.min.js
+│   │   ├── slick.min.js
+│   │   ├── rangeslider.min.js
+│   │   ├── photobox.min.js
+│   │   ├── velocity.min.js
+│   │   └── caph/                 ← Samsung CAPH framework
+│   │
+│   ├── Models/                   ← Data models
+│   │   ├── LiveModel.js          ← Live TV channels
+│   │   ├── VodModel.js           ← Movies/VOD
+│   │   └── SeriesModel.js        ← TV series
+│   │
+│   ├── main.js                   ← App initialization & platform detection
+│   ├── common.js                 ← Shared utilities & M3U parser
+│   ├── keyTizen.js               ← Remote control key mapping
+│   │
+│   ├── login_operation.js        ← Authentication & playlist loading
+│   ├── home_operation.js         ← Homepage navigation
+│   ├── channel_operation.js      ← Live TV list
+│   ├── vod_summary.js            ← Movie details
+│   ├── series_summary.js         ← Series details
+│   ├── player.js                 ← Video playback (AVPlay/webOS)
+│   ├── vod_series_player.js      ← VOD/Series player logic
+│   ├── search_page.js            ← Search functionality
+│   ├── youtube_page.js           ← YouTube integration
+│   ├── storage_operation.js      ← Local file browser
+│   ├── image_page.js             ← Photo gallery
+│   ├── guide_page.js             ← EPG/TV guide
+│   ├── catchup.js                ← Catch-up TV
+│   ├── settings.js               ← Settings page
+│   ├── srt_parser.js             ← Subtitle parsing
+│   ├── subtitle_fetcher.js       ← Subtitle download
+│   └── time_helper.js            ← Time utilities
+│
+├── images/                       ← All image assets
+│   ├── app_launcher.png          ← TV launcher icon (512x512 recommended)
+│   ├── logo.png                  ← App logo
+│   ├── loading.gif               ← Loading spinner
+│   ├── def_image.jpg             ← Default channel/movie poster
+│   ├── background1.png           ← UI background
+│   ├── user_icon.png
+│   ├── folder.png
+│   ├── video_icon.png
+│   └── network-issue.png
+│
+├── tools/                        ← Build scripts
+│   ├── package-webos-app.js      ← LG webOS packager
+│   └── sync-version.cjs          ← Version sync helper
+│
+├── Certficate/                   ← Samsung signing certificates
+│   └── flixiptv.p12              ← Code signing certificate
+│
+├── webOSTVjs-1.2.0/              ← LG webOS JavaScript library
+│   ├── webOSTV.js                ← Production version
+│   └── webOSTV-dev.js            ← Development version
+│
+└── server.js                     ← Local dev server (Node.js)
+3️⃣ ASSET MANAGEMENT PATTERNS
+Image Paths (All Relative from Root):
+<!-- In HTML -->
+<img src="images/logo.png">
+<img src="images/loading.gif">
+<!-- In CSS -->
+background-image: url('../images/background1.png');
+<!-- In JavaScript -->
+var defaultImage = 'images/def_image.jpg';
+CSS Loading Order (Critical!):
+<!-- 1. Vendor Libraries First -->
+<link rel="stylesheet" href="css/libs/bootstrap4.4.1.min.css"/>
+<link rel="stylesheet" href="css/libs/fontawesome-5.12.1/css/all.min.css">
+<!-- 2. Global Styles -->
+<link rel="stylesheet" href="css/style.css"/>
+<link rel="stylesheet" href="css/variables.css"/>
+<!-- 3. Page-Specific Styles -->
+<link rel="stylesheet" href="css/homepage.css">
+<link rel="stylesheet" href="css/channel_page.css">
+...
+<!-- 4. Responsive Last -->
+<link rel="stylesheet" href="css/responsive.css">
+JavaScript Loading Order:
+<!-- 1. Platform Detection (First!) -->
+<script src="webOSTVjs-1.2.0/webOSTV.js"></script>
+<script src="js/libs/caph/caph.js"></script>
+<!-- 2. Vendor Libraries -->
+<script src="js/libs/jquery-3.4.1.min.js"></script>
+<script src="js/libs/bootstrap.min.js"></script>
+<script src="js/libs/moment.min.js"></script>
+...
+<!-- 3. Data Models -->
+<script src="js/Models/LiveModel.js"></script>
+<script src="js/Models/VodModel.js"></script>
+<script src="js/Models/SeriesModel.js"></script>
+<!-- 4. Core App Logic -->
+<script src="js/common.js"></script>
+<script src="js/keyTizen.js"></script>
+<script src="js/main.js"></script>
+<!-- 5. Page Controllers -->
+<script src="js/login_operation.js"></script>
+<script src="js/home_operation.js"></script>
+...
+Naming Conventions:
+Files: snake_case (e.g., home_operation.js, vod_series_player.js)
+CSS Classes: kebab-case (e.g., menu-item, video-player)
+IDs: kebab-case (e.g., home-page, login-container)
+JavaScript Variables: camelCase (e.g., currentRoute, playlistUrl)
+Constants: UPPER_SNAKE_CASE (e.g., API_HOST_URL)
+4️⃣ PLATFORM-SPECIFIC CONFIGURATION
+A. LG webOS (appinfo.json):
+{
+  "vendor": "YourCompany",
+  "largeIcon": "logo.png",          // 130x130px
+  "icon": "logo.png",               // 80x80px
+  "main": "index.html",
+  "id": "com.yourcompany.appname",  // Unique reverse-DNS
+  "title": "Your App Name",
+  "type": "web",
+  "resolution": "1920x1080",
+  "version": "1.0.0",
+  "disableBackHistoryAPI": true,    // Prevent back button issues
+  "requiredPermissions": [
+    "group1",                       // Network access
+    "group2"                        // Device info
+  ]
+}
+B. Samsung Tizen (config.xml):
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets" 
+        id="http://yourdomain/AppName" 
+        version="1.0.0">
+    
+    <!-- Allow all domains -->
+    <access origin="*" subdomains="true"></access>
+    
+    <!-- App ID (must match certificate) -->
+    <tizen:application 
+        id="a1b2c3d4e5.AppName" 
+        package="a1b2c3d4e5" 
+        required_version="2.3"/>
+    
+    <!-- Entry point -->
+    <content src="index.html"/>
+    
+    <!-- Screen resolution -->
+    <feature name="http://tizen.org/feature/screen.size.normal.1080.1920"/>
+    
+    <!-- Icon -->
+    <icon src="images/app_launcher.png"/>
+    
+    <!-- App name -->
+    <name>Your App Name</name>
+    
+    <!-- Required permissions -->
+    <tizen:privilege name="http://developer.samsung.com/privilege/network.public"/>
+    <tizen:privilege name="http://tizen.org/privilege/internet"/>
+    <tizen:privilege name="http://tizen.org/privilege/tv.inputdevice"/>
+    <tizen:privilege name="http://tizen.org/privilege/filesystem.read"/>
+    <tizen:privilege name="http://tizen.org/privilege/filesystem.write"/>
+    <tizen:privilege name="http://developer.samsung.com/privilege/widgetdata"/>
+    
+    <!-- Platform profile -->
+    <tizen:profile name="tv-samsung"/>
+</widget>
+5️⃣ CORE ARCHITECTURE PATTERNS
+Single Page Application (SPA) Structure:
+// All pages in index.html as hidden divs
+<div id="login-page">...</div>
+<div id="home-page" style="display:none">...</div>
+<div id="channel-page" style="display:none">...</div>
+<div id="player-page" style="display:none">...</div>
+Page Navigation Pattern:
+// main.js - Global state
+var current_route = 'login';  // Current active page
+// Show page function
+function showPage(pageName) {
+    hideAllPages();
+    $('#' + pageName + '-page').show();
+    current_route = pageName;
+}
+// Key handler routes to active page
+document.addEventListener('keydown', function(e) {
+    if (current_route === 'home') {
+        home_page.keyDown(e);
+    } else if (current_route === 'channel') {
+        channel_page.keyDown(e);
+    }
+});
+State Management:
+// common.js - Global state variables
+var lives = [];              // Live TV channels
+var vods = [];               // Movies
+var series = [];             // TV series
+var live_categories = [];    // Channel categories
+var settings = {};           // User settings
+// LocalStorage persistence
+function saveToStorage(key, value) {
+    var storage_id = 'flixiptv_' + platform;
+    localStorage.setItem(storage_id + '_' + key, JSON.stringify(value));
+}
+6️⃣ VIDEO PLAYER IMPLEMENTATION
+Platform Detection:
+// main.js
+var platform = 'samsung';  // or 'lg'
+if (typeof webOS !== 'undefined') {
+    platform = 'lg';
+} else if (typeof tizen !== 'undefined') {
+    platform = 'samsung';
+}
+Samsung Tizen (AVPlay API):
+// player.js
+var avplayObject = webapis.avplay;
+// Play video
+avplayObject.open(videoUrl);
+avplayObject.setDisplayRect(0, 0, 1920, 1080);
+avplayObject.prepareAsync(function() {
+    avplayObject.play();
+});
+// Event listeners
+var listener = {
+    onbufferingstart: function() { showLoader(); },
+    onbufferingcomplete: function() { hideLoader(); },
+    onerror: function(eventType) { handleError(eventType); }
+};
+avplayObject.setListener(listener);
+LG webOS (HTML5 Video):
+// player.js
+var videoElement = document.getElementById('video-player-lg');
+// Play video
+videoElement.src = videoUrl;
+videoElement.play();
+// Event listeners
+videoElement.addEventListener('playing', function() {
+    hideLoader();
+});
+videoElement.addEventListener('error', function() {
+    handleError();
+});
+7️⃣ M3U PLAYLIST PARSING
+// common.js - parseM3uResponse()
+// Split by #EXTINF tags
+var entries = text_response.split(/#EXTINF:-{0,1}[0-9]{1,} {0,},{0,}/gm);
+entries.forEach(function(entry) {
+    var lines = entry.split("\n");
+    var metadata = lines[0];  // tvg-id="1" tvg-name="Fox" group-title="News"
+    var url = lines[1];       // https://stream.url/channel.m3u8
+    
+    // Extract attributes
+    var attributes = splitStrings(metadata, ['tvg-', 'group-']);
+    
+    attributes.forEach(function(attr) {
+        var parts = attr.split("=");
+        var key = parts[0];    // "id", "name", "logo", "title"
+        var value = parts[1];  // Actual value
+        
+        switch(key) {
+            case "id":
+                channel.stream_id = value;
+                break;
+            case "name":
+                channel.name = value;
+                break;
+            case "logo":
+                channel.stream_icon = value;
+                break;
+            case "title":  // group-title
+                channel.category_id = value;
+                break;
+        }
+    });
+    
+    // Auto-detect content type from URL
+    if (url.includes('/movie/') || url.includes('vod')) {
+        type = "vod";
+    } else if (url.includes('/series/')) {
+        type = "series";
+    } else {
+        type = "live";
+    }
+});
+8️⃣ REMOTE CONTROL NAVIGATION
+Key Code Mapping:
+// keyTizen.js
+var keys = {
+    UP: 38,
+    DOWN: 40,
+    LEFT: 37,
+    RIGHT: 39,
+    ENTER: 13,
+    RETURN: 10009,      // Samsung back button
+    PLAY: 415,
+    PAUSE: 19,
+    STOP: 413,
+    RED: 403,
+    GREEN: 404,
+    YELLOW: 405,
+    BLUE: 406
+};
+Focus Management Pattern:
+// home_operation.js
+var current_menu_index = 0;
+var menu_items = $('.menu-item');
+function keyDown(e) {
+    if (e.keyCode === keys.DOWN) {
+        current_menu_index++;
+        if (current_menu_index >= menu_items.length) {
+            current_menu_index = 0;  // Wrap around
+        }
+        updateFocus();
+    }
+}
+function updateFocus() {
+    menu_items.removeClass('active');
+    $(menu_items[current_menu_index]).addClass('active');
+}
+CSS Focus Styling:
+.menu-item {
+    opacity: 0.6;
+    transition: all 0.3s;
+}
+.menu-item.active {
+    opacity: 1;
+    transform: scale(1.1);
+    background: linear-gradient(to right, #ff6b6b, #ee5a6f);
+}
+9️⃣ DATA STORAGE PATTERNS
+LocalStorage Structure:
+// Storage keys (platform-specific prefix)
+var storage_id = 'flixiptv_samsung';  // or 'flixiptv_lg'
+// Stored data:
+localStorage.setItem(storage_id + '_lives', JSON.stringify(lives));
+localStorage.setItem(storage_id + '_vods', JSON.stringify(vods));
+localStorage.setItem(storage_id + '_settings', JSON.stringify(settings));
+localStorage.setItem(storage_id + '_favorites', JSON.stringify(favorites));
+localStorage.setItem(storage_id + '_recent', JSON.stringify(recent));
+localStorage.setItem(storage_id + '_theme', themeId);
+localStorage.setItem(storage_id + '_parental_pin', pin);
+localStorage.setItem(storage_id + '_playback_position_' + videoId, position);
+Data Models:
+// js/Models/LiveModel.js
+function LiveModel() {
+    this.loadLiveChannels = function(callback) {
+        $.ajax({
+            url: api_url + '/live',
+            success: function(response) {
+                lives = response.channels;
+                saveToStorage('lives', lives);
+                callback(lives);
+            }
+        });
+    };
+}
+// Usage:
+var liveModel = new LiveModel();
+liveModel.loadLiveChannels(function(channels) {
+    renderChannels(channels);
+});
+🔟 BUILD & DEPLOYMENT
+Package.json Scripts:
+{
+  "scripts": {
+    "lg:package": "node tools/package-webos-app.js",
+    
+    "sm:build": "rimraf .buildResult && tizen build-web -e 'node_modules/*' -e '.git/*' -- .",
+    "sm:pack": "cd .buildResult && tizen package -t wgt -s flixiptv -- ."
+  }
+}
+LG webOS Build Process:
+# 1. Install webOS CLI
+npm install -g @webos-tools/cli
+# 2. Package app
+npm run lg:package
+# Creates: flixiptv.ipk
+# 3. Install on TV
+ares-install --device TV_NAME flixiptv.ipk
+# 4. Launch
+ares-launch --device TV_NAME flixiptv.player
+Samsung Tizen Build Process:
+# 1. Install Tizen Studio
+# 2. Create certificate (one-time)
+tizen certificate -a flixiptv -p 1234
+# 3. Build
+npm run sm:build
+# Creates: .buildResult/
+# 4. Package
+npm run sm:pack
+# Creates: .buildResult/flixiptv.wgt
+# 5. Install on TV
+tizen install -n flixiptv.wgt -t TV_NAME
+Custom LG Packager (tools/package-webos-app.js):
+const archiver = require('archiver');
+const fs = require('fs');
+// Create ZIP archive
+const output = fs.createWriteStream('flixiptv.ipk');
+const archive = archiver('zip');
+archive.pipe(output);
+// Add all files except exclusions
+archive.glob('**/*', {
+    ignore: [
+        'node_modules/**',
+        '.git/**',
+        'tools/**',
+        '.buildResult/**'
+    ]
+});
+archive.finalize();
+1️⃣1️⃣ CRITICAL IMPLEMENTATION DETAILS
+A. Authentication Flow:
+// login_operation.js
+// 1. Get device MAC address
+var macAddress = getMacAddress();  // Platform-specific
+// 2. Send to backend
+$.ajax({
+    url: panel_url + '/api/device_info',
+    data: { mac: macAddress },
+    success: function(response) {
+        if (response.mac_registered) {
+            // Load user's playlist
+            loadPlaylist(response.playlist_url);
+        } else {
+            // Show demo or activation screen
+            showActivationScreen();
+        }
+    }
+});
+B. API Integration Pattern:
+// Backend API endpoints expected:
+- /api/device_info          // MAC registration check
+- /api/live                 // Live channels (or M3U URL)
+- /api/vod                  // Movies
+- /api/series               // TV series
+- /api/epg                  // EPG data
+C. Error Handling:
+// Reconnect on stream error
+var reconnectAttempts = 0;
+var maxReconnects = 3;
+function handleStreamError() {
+    reconnectAttempts++;
+    if (reconnectAttempts < maxReconnects) {
+        setTimeout(function() {
+            avplayObject.stop();
+            avplayObject.open(videoUrl);
+            avplayObject.play();
+        }, 2000);
+    } else {
+        showErrorMessage('Stream unavailable');
+    }
+}
+1️⃣2️⃣ DEPENDENCIES MANAGEMENT
+Why Everything is Vendored (Local):
+✅ TV browsers have limited internet (firewall restrictions)
+✅ Offline functionality required
+✅ Version consistency across platforms
+✅ Faster load times (no CDN latency)
+✅ Works in restricted networks
+External Resources (Minimal):
+<!-- Only critical external resources -->
+<link rel="preload" href="https://backend.com/activation-qr.svg">
+Library Versions (Pinned):
+css/libs/
+  ├── bootstrap4.4.1.min.css      (Not 4.4.2 or 5.x)
+  └── fontawesome-5.12.1/         (Not 5.13 or 6.x)
+js/libs/
+  ├── jquery-3.4.1.min.js         (Not 3.5 or 4.x)
+  └── moment.min.js               (Full build, not modular)
+📊 QUICK REFERENCE CHECKLIST
+For Your New Project:
+✅ 1. Setup:
+
+ Create index.html with all pages as hidden divs
+ Create appinfo.json (LG) and config.xml (Samsung)
+ Add package.json with build scripts
+ Create folder structure: css/, js/, images/
+✅ 2. Vendor Libraries:
+
+ Download and place in css/libs/ and js/libs/
+ Load in correct order in index.html
+ Never use CDN links
+✅ 3. Platform Detection:
+
+ Add webOS SDK: webOSTVjs-1.2.0/
+ Add Samsung CAPH: js/libs/caph/
+ Implement platform check in main.js
+✅ 4. Video Players:
+
+ Samsung: Use webapis.avplay API
+ LG: Use HTML5 <video> element
+ Platform-specific error handling
+✅ 5. Remote Control:
+
+ Map all keys in keyTizen.js
+ Implement focus management
+ CSS focus states with .active class
+✅ 6. Data Management:
+
+ Create Models for Live/VOD/Series
+ LocalStorage with platform prefix
+ M3U parser in common.js
+✅ 7. Build Process:
+
+ LG: tools/package-webos-app.js
+ Samsung: Tizen build scripts
+ Test on both platforms

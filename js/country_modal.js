@@ -1,56 +1,80 @@
 var country_modal = {
+    countries: [],
     current_index: 0,
-    selected_country: 'Austria',
-    countries: [
-        {name: 'Austria', flag: 'images/station_austria_1_1691_11039.png'},
-        {name: 'Turkey', flag: 'images/station_powerturk_tv_logosu_1_1691_10798.png'},
-        {name: 'Germany', flag: 'images/station_0b75jzrr_400x400_1_1691_10820.png'},
-        {name: 'USA', flag: 'images/station_android_default_logo_1_1691_10844.png'},
-        {name: 'France', flag: 'images/station_meta_image_1_1_1691_10934.png'},
-        {name: 'Spain', flag: 'images/station_alem_fm_1_1691_10876.png'},
-        {name: 'Italy', flag: 'images/station_austria_1_1691_11039.png'}
-    ],
     
     init: function() {
-        this.selected_country = loadFromStorage('selected_country') || 'Austria';
         this.loadCountries();
-        this.updateFocus();
     },
     
     loadCountries: function() {
-        var listContainer = document.getElementById('country-modal-list');
-        if (!listContainer) return;
+        var self = this;
+        var listEl = document.getElementById('country-modal-list');
+        if (!listEl) return;
         
-        listContainer.innerHTML = '';
+        listEl.innerHTML = '<div style="color: white; text-align: center; padding: 40px;">Loading countries...</div>';
         
-        for (var i = 0; i < this.countries.length; i++) {
+        API.getCountries()
+            .then(function(countries) {
+                self.countries = countries;
+                self.renderCountries();
+            })
+            .catch(function(error) {
+                console.error('Failed to load countries:', error);
+                listEl.innerHTML = '<div style="color: white; text-align: center; padding: 40px;">Failed to load countries</div>';
+            });
+    },
+    
+    renderCountries: function() {
+        var listEl = document.getElementById('country-modal-list');
+        if (!listEl) return;
+        
+        listEl.innerHTML = '';
+        var selectedCountry = API.getSelectedCountry();
+        
+        for (var i = 0; i < Math.min(this.countries.length, 50); i++) {
             var country = this.countries[i];
             var item = document.createElement('div');
             item.className = 'country-modal-item';
-            if (country.name === this.selected_country) {
+            if (country === selectedCountry) {
                 item.classList.add('selected');
             }
             item.setAttribute('data-index', i);
             
-            var flag = document.createElement('div');
-            flag.className = 'country-modal-item-flag';
-            var flagImg = document.createElement('img');
-            flagImg.src = country.flag;
-            flagImg.alt = country.name;
-            flag.appendChild(flagImg);
-            
             var name = document.createElement('div');
-            name.className = 'country-modal-item-name';
-            name.textContent = country.name;
+            name.className = 'country-modal-item-text';
+            name.textContent = country;
             
-            var radio = document.createElement('div');
-            radio.className = 'country-modal-item-radio';
-            
-            item.appendChild(flag);
             item.appendChild(name);
-            item.appendChild(radio);
+            listEl.appendChild(item);
             
-            listContainer.appendChild(item);
+            (function(countryName) {
+                item.addEventListener('click', function() {
+                    country_modal.selectCountry(countryName);
+                });
+            })(country);
+        }
+        
+        this.updateFocus();
+    },
+    
+    selectCountry: function(country) {
+        console.log('Country selected:', country);
+        API.setSelectedCountry(country);
+        
+        var allSelectors = document.querySelectorAll('.location-text');
+        for (var i = 0; i < allSelectors.length; i++) {
+            allSelectors[i].textContent = country;
+        }
+        
+        closeCountryModal();
+        
+        if (current_route === 'home' && typeof home_page !== 'undefined') {
+            home_page.init();
+        } else if (current_route === 'genres' && typeof genres_page !== 'undefined') {
+            genres_page.init();
+        } else if (current_route === 'genre-detail' && typeof genre_detail_page !== 'undefined') {
+            var genreName = genre_detail_page.current_genre || 'Pop';
+            genre_detail_page.init(genreName);
         }
     },
     
@@ -65,20 +89,9 @@ var country_modal = {
         }
     },
     
-    selectCountry: function() {
-        var country = this.countries[this.current_index];
-        this.selected_country = country.name;
-        saveToStorage('selected_country', country.name);
-        
-        var allSelectors = document.querySelectorAll('.location-text');
-        for (var i = 0; i < allSelectors.length; i++) {
-            allSelectors[i].textContent = country.name;
-        }
-        
-        closeCountryModal();
-    },
-    
     handleKey: function(keyCode) {
+        var items = document.querySelectorAll('.country-modal-item');
+        
         switch(keyCode) {
             case KEY_UP:
                 if (this.current_index > 0) {
@@ -88,14 +101,16 @@ var country_modal = {
                 break;
                 
             case KEY_DOWN:
-                if (this.current_index < this.countries.length - 1) {
+                if (this.current_index < items.length - 1) {
                     this.current_index++;
                     this.updateFocus();
                 }
                 break;
                 
             case KEY_ENTER:
-                this.selectCountry();
+                if (this.countries[this.current_index]) {
+                    this.selectCountry(this.countries[this.current_index]);
+                }
                 break;
                 
             case KEY_BACK:

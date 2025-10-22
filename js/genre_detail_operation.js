@@ -18,11 +18,6 @@ var genre_detail_page = {
         
         gridContainer.innerHTML = '';
         
-        var titleEl = document.querySelector('.genre-detail-title');
-        if (titleEl) {
-            titleEl.textContent = this.current_genre + ' Stations';
-        }
-        
         var positions = [
             {x: 236, y: 316}, {x: 466, y: 316}, {x: 696, y: 316}, {x: 926, y: 316}, {x: 1156, y: 316}, {x: 1386, y: 316},
             {x: 236, y: 610}, {x: 466, y: 610}, {x: 696, y: 610}, {x: 926, y: 610}, {x: 1156, y: 610}, {x: 1386, y: 610},

@@ -1,7 +1,7 @@
 var home_page = (function() {
     var current_menu_index = 0;
     var current_station_index = 0;
-    var menu_items = ['discover', 'genres', 'search', 'favorites', 'records', 'settings'];
+    var menu_items = ['discover', 'genres', 'search', 'favorites', 'settings'];
     var active_view = 'discover';
     var filtered_stations = [];
     var focus_area = 'menu';
@@ -113,6 +113,11 @@ var home_page = (function() {
         
         if (menu === 'favorites') {
             showPage('favorites');
+            return;
+        }
+        
+        if (menu === 'settings') {
+            showPage('settings');
             return;
         }
         
@@ -231,6 +236,10 @@ var home_page = (function() {
             }
             if (menu === 'favorites') {
                 showPage('favorites');
+                return;
+            }
+            if (menu === 'settings') {
+                showPage('settings');
                 return;
             }
             handleMenuClick(current_menu_index);

@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="css/search.css"/>
     <link rel="stylesheet" href="css/genre-detail.css"/>
     <link rel="stylesheet" href="css/favorites.css"/>
+    <link rel="stylesheet" href="css/settings.css"/>
+    <link rel="stylesheet" href="css/player.css"/>
+    <link rel="stylesheet" href="css/country-modal.css"/>
     <link rel="stylesheet" href="css/responsive.css"/>
 </head>
 <body>
@@ -45,12 +48,6 @@
             <div class="nav-content">
                 <div class="nav-icon"><img src="images/icon_heart.png" alt=""></div>
                 <p class="nav-label">Favorites</p>
-            </div>
-        </div>
-        <div class="nav-item" data-menu="records">
-            <div class="nav-content">
-                <div class="nav-icon"><img src="images/icon_record.png" alt=""></div>
-                <p class="nav-label">Records</p>
             </div>
         </div>
         <div class="nav-item" data-menu="settings">
@@ -87,7 +84,7 @@
                 <img src="images/logo.png" alt="">
             </div>
 
-            <div class="location-selector">
+            <div class="location-selector" onclick="openCountryModal()">
                 <div class="location-content">
                     <div class="location-flag"><img src="images/station_austria_1_1691_11039.png" alt=""></div>
                     <p class="location-text">Austria</p>
@@ -97,10 +94,6 @@
 
             <div class="equalizer">
                 <img src="images/icon_equalizer.png" alt="" class="equ-icon">
-            </div>
-
-            <div class="login-btn">
-                <p class="login-text">Login</p>
             </div>
 
             <p class="section-title genres-title">Popular Genres</p>
@@ -280,7 +273,7 @@
                 <img src="images/logo.png" alt="">
             </div>
 
-            <div class="location-selector">
+            <div class="location-selector" onclick="openCountryModal()">
                 <div class="location-content">
                     <div class="location-flag"><img src="images/station_austria_1_1691_11039.png" alt=""></div>
                     <p class="location-text">Austria</p>
@@ -288,8 +281,8 @@
                 </div>
             </div>
 
-            <div class="login-btn">
-                <p class="login-text">Login</p>
+            <div class="equalizer">
+                <img src="images/icon_equalizer.png" alt="" class="equ-icon">
             </div>
 
             <p class="genres-title-main">Popular Genres</p>
@@ -391,18 +384,6 @@
 
             <div class="logo">
                 <img src="images/logo.png" alt="">
-            </div>
-
-            <div class="location-selector">
-                <div class="location-content">
-                    <div class="location-flag"><img src="images/station_austria_1_1691_11039.png" alt=""></div>
-                    <p class="location-text">Austria</p>
-                    <div class="location-arrow">▼</div>
-                </div>
-            </div>
-
-            <div class="login-btn">
-                <p class="login-text">Login</p>
             </div>
 
             <p class="search-title-main">Search</p>
@@ -511,7 +492,36 @@
                 <img src="images/logo.png" alt="">
             </div>
 
-            <div class="location-selector">
+            <div class="location-selector" onclick="openCountryModal()">
+                <div class="location-content">
+                    <div class="location-flag"><img src="images/station_austria_1_1691_11039.png" alt=""></div>
+                    <p class="location-text">Austria</p>
+                    <div class="location-arrow">▼</div>
+                </div>
+            </div>
+
+            <div class="equalizer">
+                <img src="images/icon_equalizer.png" alt="" class="equ-icon">
+            </div>
+
+            <p class="favorites-title-main">Your Favorites</p>
+
+            <div class="favorites-grid" id="favorites-grid"></div>
+        </div>
+    </div>
+    
+    <div id="settings-page" class="page" style="display:none">
+        <div class="settings-container">
+            <div class="bg-hand-crowd">
+                <img src="images/bg_disco.png" alt="">
+            </div>
+            <div class="bg-gradient-settings"></div>
+
+            <div class="logo">
+                <img src="images/logo.png" alt="">
+            </div>
+
+            <div class="location-selector" onclick="openCountryModal()">
                 <div class="location-content">
                     <div class="location-flag"><img src="images/station_austria_1_1691_11039.png" alt=""></div>
                     <p class="location-text">Austria</p>
@@ -523,22 +533,141 @@
                 <p class="login-text">Login</p>
             </div>
 
-            <p class="favorites-title-main">Your Favorites</p>
+            <p class="settings-title">Settings</p>
 
-            <div class="favorites-grid" id="favorites-grid"></div>
+            <div class="settings-left-panel">
+                <p class="settings-section-title">Play at login</p>
+                <div class="settings-radio-group" id="play-at-login-group">
+                    <div class="settings-radio-item" data-value="last-played">
+                        <div class="radio-btn"></div>
+                        <p class="radio-label">Last Played</p>
+                    </div>
+                    <div class="settings-radio-item" data-value="random">
+                        <div class="radio-btn"></div>
+                        <p class="radio-label">Random</p>
+                    </div>
+                    <div class="settings-radio-item" data-value="favorite">
+                        <div class="radio-btn"></div>
+                        <p class="radio-label">Favorite</p>
+                    </div>
+                    <div class="settings-radio-item active" data-value="none">
+                        <div class="radio-btn selected"></div>
+                        <p class="radio-label">None</p>
+                    </div>
+                </div>
+
+                <p class="settings-section-title" style="top: 657px;">Country</p>
+                <div class="settings-selector" style="top: 701px;" onclick="openCountryModal()">
+                    <p class="selector-text">Turkey</p>
+                </div>
+
+                <p class="settings-section-title" style="top: 806px;">Language</p>
+                <div class="settings-selector" style="top: 850px;">
+                    <p class="selector-text">English</p>
+                </div>
+            </div>
+
+            <div class="settings-user-panel">
+                <div class="user-info">
+                    <div class="user-avatar"></div>
+                    <div class="user-details">
+                        <p class="user-name">Talha Çay</p>
+                        <p class="user-email">talhacay@gmail.com</p>
+                    </div>
+                </div>
+                <div class="logout-btn">
+                    <div class="logout-icon">←</div>
+                    <p class="logout-text">Logout</p>
+                </div>
+            </div>
         </div>
     </div>
     
     <div id="player-page" class="page" style="display:none">
-        <div class="container">
-            <h1 class="title">Now Playing</h1>
-            <div id="player-info">
+        <div class="player-container">
+            <div class="bg-hand-crowd">
+                <img src="images/bg_disco.png" alt="">
+            </div>
+            <div class="bg-gradient-player"></div>
+
+            <div class="logo">
+                <img src="images/logo.png" alt="">
+            </div>
+
+            <div class="location-selector" onclick="openCountryModal()">
+                <div class="location-content">
+                    <div class="location-flag"><img src="images/station_austria_1_1691_11039.png" alt=""></div>
+                    <p class="location-text">Austria</p>
+                    <div class="location-arrow">▼</div>
+                </div>
+            </div>
+
+            <div class="player-station-logo">
+                <img src="images/station_powerturk_tv_logosu_1_1691_10798.png" alt="" id="player-station-image">
+            </div>
+
+            <div class="player-equalizer-icon">
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+            </div>
+
+            <p class="player-station-name" id="player-station-name">Metro FM</p>
+            <p class="player-song-info" id="player-song-info">Starboy - The Weeknd</p>
+            <p class="player-info-link">Station Info</p>
+
+            <div class="player-flag">
+                <img src="images/station_austria_1_1691_11039.png" alt="">
+            </div>
+
+            <div class="player-tags">
+                <div class="player-tag">128kb</div>
+                <div class="player-tag">MP3</div>
+                <div class="player-tag">AT</div>
+                <div class="player-tag">Rock</div>
+                <div class="player-tag">Classic</div>
+            </div>
+
+            <div class="player-controls">
+                <div class="player-btn player-prev" id="btn-prev">
+                    <div class="btn-icon">◄</div>
+                </div>
+                <div class="player-btn player-play active" id="btn-play">
+                    <div class="btn-icon">❚❚</div>
+                </div>
+                <div class="player-btn player-next" id="btn-next">
+                    <div class="btn-icon">►</div>
+                </div>
+                <div class="player-btn player-fav" id="btn-fav">
+                    <div class="btn-icon">♥</div>
+                </div>
             </div>
         </div>
     </div>
     
     <div id="loader">
         <div class="loader-spinner"></div>
+    </div>
+    
+    <!-- Country Selector Modal -->
+    <div id="country-modal" class="country-modal">
+        <div class="country-modal-back-btn" onclick="closeCountryModal()">
+            <div class="country-modal-back-icon">←</div>
+            <div class="country-modal-back-text">Back</div>
+        </div>
+        
+        <div class="country-modal-container">
+            <div class="country-modal-search">
+                <div class="country-modal-search-icon">🔍</div>
+                <div class="country-modal-search-text">Country</div>
+            </div>
+            
+            <div class="country-modal-list" id="country-modal-list">
+                <!-- Countries populated by JavaScript -->
+            </div>
+        </div>
+        
+        <div class="country-modal-keyboard-hint">Native keyboard</div>
     </div>
     
     <!-- <script src="webOSTVjs-1.2.0/webOSTV.js"></script> -->
@@ -557,6 +686,9 @@
     <script src="js/search_operation.js"></script>
     <script src="js/genre_detail_operation.js"></script>
     <script src="js/favorites_operation.js"></script>
+    <script src="js/settings_operation.js"></script>
+    <script src="js/player_operation.js"></script>
+    <script src="js/country_modal.js"></script>
     
     <script>
         function updateTime() {

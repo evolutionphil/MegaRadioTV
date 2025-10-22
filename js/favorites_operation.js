@@ -20,27 +20,8 @@ var favorites_page = {
         this.favorites = loadFromStorage('favorites') || [];
         
         if (this.favorites.length === 0) {
-            this.favorites = [
-                {name: 'Power Türk FM', category: 'Türkçe Pop', logo: 'images/station_powerturk_tv_logosu_1_1691_10798.png'},
-                {name: 'Alem FM', category: 'World Music', logo: 'images/station_alem_fm_1_1691_10876.png'},
-                {name: 'Radio Mega', category: 'Top Hits', logo: 'images/station_0b75jzrr_400x400_1_1691_10820.png'},
-                {name: 'Smooth Jazz', category: 'Jazz', logo: 'images/station_android_default_logo_1_1691_10844.png'},
-                {name: 'Classic Hits', category: 'Oldies', logo: 'images/station_meta_image_1_1_1691_10934.png'},
-                {name: 'Rock Nation', category: 'Rock', logo: 'images/station_austria_1_1691_11039.png'},
-                {name: 'Electronic Beats', category: 'Electronic', logo: 'images/station_powerturk_tv_logosu_1_1691_10798.png'},
-                {name: 'Jazz Lounge', category: 'Jazz', logo: 'images/station_alem_fm_1_1691_10876.png'},
-                {name: 'Hip Hop Central', category: 'Hip Hop', logo: 'images/station_0b75jzrr_400x400_1_1691_10820.png'},
-                {name: 'Country Roads', category: 'Country', logo: 'images/station_android_default_logo_1_1691_10844.png'},
-                {name: 'Pop Hits 24/7', category: 'Pop', logo: 'images/station_meta_image_1_1_1691_10934.png'},
-                {name: 'Indie Vibes', category: 'Indie', logo: 'images/station_austria_1_1691_11039.png'},
-                {name: 'Austria FM', category: 'Austrian Pop', logo: 'images/station_austria_1_1691_11039.png'},
-                {name: 'Vienna Classics', category: 'Classical', logo: 'images/station_powerturk_tv_logosu_1_1691_10798.png'},
-                {name: 'Alpine Radio', category: 'Folk', logo: 'images/station_alem_fm_1_1691_10876.png'},
-                {name: 'Salzburg Sounds', category: 'Variety', logo: 'images/station_0b75jzrr_400x400_1_1691_10820.png'},
-                {name: 'Innsbruck Mix', category: 'Top 40', logo: 'images/station_android_default_logo_1_1691_10844.png'},
-                {name: 'Graz Grooves', category: 'Dance', logo: 'images/station_meta_image_1_1_1691_10934.png'}
-            ];
-            saveToStorage('favorites', this.favorites);
+            this.showEmptyState();
+            return;
         }
         
         var positions = [
@@ -80,6 +61,40 @@ var favorites_page = {
         }
     },
     
+    showEmptyState: function() {
+        var gridContainer = document.getElementById('favorites-grid');
+        
+        var emptyState = document.createElement('div');
+        emptyState.className = 'favorites-empty-state';
+        
+        var icon = document.createElement('div');
+        icon.className = 'favorites-empty-icon';
+        var heartImg = document.createElement('img');
+        heartImg.src = 'images/icon_heart.png';
+        heartImg.alt = 'Heart';
+        icon.appendChild(heartImg);
+        
+        var title = document.createElement('div');
+        title.className = 'favorites-empty-title';
+        title.textContent = "You don't have any\nfavorites yet";
+        title.innerHTML = "You don't have any<br>favorites yet";
+        
+        var subtitle = document.createElement('div');
+        subtitle.className = 'favorites-empty-subtitle';
+        subtitle.textContent = 'Discover stations near to you!';
+        
+        var arrow = document.createElement('div');
+        arrow.className = 'favorites-empty-arrow';
+        arrow.textContent = '→';
+        
+        emptyState.appendChild(icon);
+        emptyState.appendChild(title);
+        emptyState.appendChild(subtitle);
+        emptyState.appendChild(arrow);
+        
+        gridContainer.appendChild(emptyState);
+    },
+    
     updateFocus: function() {
         var cards = document.querySelectorAll('.favorites-grid .radio-card');
         for (var i = 0; i < cards.length; i++) {
@@ -92,6 +107,15 @@ var favorites_page = {
     },
     
     handleKey: function(keyCode) {
+        if (this.favorites.length === 0) {
+            if (keyCode === KEY_BACK) {
+                showPage('home');
+            } else if (keyCode === KEY_ENTER) {
+                showPage('genres');
+            }
+            return;
+        }
+        
         var totalStations = Math.min(this.favorites.length, 18);
         
         switch(keyCode) {

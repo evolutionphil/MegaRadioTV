@@ -1,0 +1,194 @@
+.settings-container {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    background: linear-gradient(156deg, rgb(70, 15, 40) 0%, rgb(14, 14, 14) 100%);
+    margin: 0;
+}
+
+.bg-gradient-settings {
+    position: absolute;
+    background: linear-gradient(to bottom, rgba(13, 13, 13, 0) 0%, rgba(13, 13, 13, 1) 100%);
+    height: 1080px;
+    left: 0;
+    top: 0;
+    width: 1920px;
+}
+
+.settings-title {
+    position: absolute;
+    font-weight: 700;
+    left: 236px;
+    font-size: 32px;
+    color: white;
+    top: 242px;
+}
+
+.settings-left-panel {
+    position: absolute;
+    left: 236px;
+    top: 311px;
+    width: 886px;
+    height: 678px;
+}
+
+.settings-section-title {
+    position: absolute;
+    left: 30px;
+    top: 30px;
+    font-size: 24px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 1);
+}
+
+.settings-radio-group {
+    position: absolute;
+    left: 0;
+    top: 95px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.settings-radio-item {
+    display: flex;
+    align-items: center;
+    gap: 21px;
+    padding: 10px 30px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.settings-radio-item:hover,
+.settings-radio-item.active {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.radio-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.radio-btn.selected {
+    border-color: rgba(255, 65, 153, 1);
+    background: rgba(255, 65, 153, 0.2);
+}
+
+.radio-btn.selected::after {
+    content: '';
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    background: rgba(255, 65, 153, 1);
+}
+
+.radio-label {
+    font-size: 22px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 1);
+    margin: 0;
+}
+
+.settings-selector {
+    position: absolute;
+    left: 30px;
+    width: 815px;
+    height: 75px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.settings-selector:hover,
+.settings-selector.active {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.selector-text {
+    font-size: 24px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 1);
+    margin: 0;
+}
+
+.settings-user-panel {
+    position: absolute;
+    left: 1142px;
+    top: 311px;
+    width: 703px;
+    height: 177px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 40px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+.user-avatar {
+    width: 97px;
+    height: 97px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.user-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 1);
+    margin: 0;
+}
+
+.user-email {
+    font-size: 18px;
+    font-weight: 500;
+    color: rgba(128, 128, 128, 1);
+    margin: 0;
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.logout-btn:hover,
+.logout-btn.active {
+    opacity: 0.8;
+}
+
+.logout-icon {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 1);
+}
+
+.logout-text {
+    font-size: 18px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 1);
+    margin: 0;
+}

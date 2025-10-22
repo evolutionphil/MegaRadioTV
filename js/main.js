@@ -43,6 +43,12 @@ function init() {
 
 // Route key events to active page
 function routeKeyEvent(e) {
+    var modal = document.getElementById('country-modal');
+    if (modal && modal.classList.contains('active')) {
+        country_modal.handleKey(e.keyCode);
+        return;
+    }
+    
     if (current_route === 'splash' && typeof splash_page !== 'undefined') {
         splash_page.keyDown(e);
     } else if (current_route === 'home' && typeof home_page !== 'undefined') {
@@ -55,8 +61,10 @@ function routeKeyEvent(e) {
         genre_detail_page.handleKey(e.keyCode);
     } else if (current_route === 'favorites' && typeof favorites_page !== 'undefined') {
         favorites_page.handleKey(e.keyCode);
+    } else if (current_route === 'settings' && typeof settings_page !== 'undefined') {
+        settings_page.handleKey(e.keyCode);
     } else if (current_route === 'player' && typeof player_page !== 'undefined') {
-        player_page.keyDown(e);
+        player_page.handleKey(e.keyCode);
     }
     
     // Global back button (Samsung RETURN button)
@@ -109,6 +117,13 @@ function showPage(pageName) {
         } else if (pageName === 'favorites' && typeof favorites_page !== 'undefined') {
             console.log('Initializing favorites page...');
             favorites_page.init();
+        } else if (pageName === 'settings' && typeof settings_page !== 'undefined') {
+            console.log('Initializing settings page...');
+            settings_page.init();
+        } else if (pageName === 'player' && typeof player_page !== 'undefined') {
+            console.log('Initializing player page...');
+            var station = arguments[1] || null;
+            player_page.init(station);
         } else {
             console.log('ERROR: Could not initialize page ' + pageName);
         }
@@ -131,6 +146,8 @@ function handleBackButton() {
     } else if (current_route === 'genre-detail') {
         showPage('genres');
     } else if (current_route === 'favorites') {
+        showPage('home');
+    } else if (current_route === 'settings') {
         showPage('home');
     } else if (current_route === 'player') {
         showPage('home');

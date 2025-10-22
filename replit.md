@@ -134,6 +134,12 @@ Configured for autoscale deployment.
 - **EXACT FIGMA MATCH** - All layouts use absolute positioning at 1920x1080px resolution
 
 ## Recent Changes
+- 2025-10-22: **RADIO STATION DETAIL PAGE - SIMILAR RADIOS SECTION**
+  - Added "Similar Radios" section to player page at y=659px
+  - 12 station cards in two rows (6 per row at y=733 and y=1027)
+  - Station cards: 200x264px at exact Figma positions
+  - Player container now 1819px height with vertical scroll
+  - Matches Figma node 1597:3968 exactly
 - 2025-10-22: **PLAYER PAGE & UI CLEANUP (ARCHITECT APPROVED)**
   - **Player page implemented** (Figma node 1597-3968):
     - Full 1920x1080 layout with station logo (296x296px at 236,242)

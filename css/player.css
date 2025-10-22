@@ -1,8 +1,9 @@
 .player-container {
     position: relative;
     width: 1920px;
-    height: 1080px;
-    overflow: hidden;
+    height: 1819px;
+    overflow-y: auto;
+    overflow-x: hidden;
     background: linear-gradient(156deg, rgb(70, 15, 40) 0%, rgb(14, 14, 14) 100%);
     margin: 0;
 }
@@ -170,4 +171,14 @@
 
 .player-fav.favorited .btn-icon {
     color: rgba(255, 65, 153, 1);
+}
+
+.similar-radios-title {
+    position: absolute;
+    left: 236px;
+    top: 659px;
+    font-size: 32px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 1);
+    margin: 0;
 }

@@ -49,6 +49,8 @@ function routeKeyEvent(e) {
         home_page.keyDown(e);
     } else if (current_route === 'genres' && typeof genres_page !== 'undefined') {
         genres_page.handleKey(e.keyCode);
+    } else if (current_route === 'search' && typeof search_page !== 'undefined') {
+        search_page.handleKey(e.keyCode);
     } else if (current_route === 'player' && typeof player_page !== 'undefined') {
         player_page.keyDown(e);
     }
@@ -80,6 +82,7 @@ function showPage(pageName) {
         console.log('home_page defined:', typeof home_page !== 'undefined');
         console.log('splash_page defined:', typeof splash_page !== 'undefined');
         console.log('genres_page defined:', typeof genres_page !== 'undefined');
+        console.log('search_page defined:', typeof search_page !== 'undefined');
         
         if (pageName === 'home' && typeof home_page !== 'undefined') {
             console.log('Initializing home page...');
@@ -90,6 +93,9 @@ function showPage(pageName) {
         } else if (pageName === 'genres' && typeof genres_page !== 'undefined') {
             console.log('Initializing genres page...');
             genres_page.init();
+        } else if (pageName === 'search' && typeof search_page !== 'undefined') {
+            console.log('Initializing search page...');
+            search_page.init();
         } else {
             console.log('ERROR: Could not initialize page ' + pageName);
         }
@@ -106,6 +112,8 @@ function handleBackButton() {
             tizen.application.getCurrentApplication().exit();
         }
     } else if (current_route === 'genres') {
+        showPage('home');
+    } else if (current_route === 'search') {
         showPage('home');
     } else if (current_route === 'player') {
         showPage('home');

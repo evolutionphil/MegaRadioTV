@@ -14,9 +14,50 @@
     <link rel="stylesheet" href="css/splash.css"/>
     <link rel="stylesheet" href="css/homepage.css"/>
     <link rel="stylesheet" href="css/genres.css"/>
+    <link rel="stylesheet" href="css/search.css"/>
     <link rel="stylesheet" href="css/responsive.css"/>
 </head>
 <body>
+    
+    <!-- Global Left Navigation Menu -->
+    <nav class="left-menu global-nav">
+        <div class="nav-item nav-item-active" data-menu="discover">
+            <div class="nav-content">
+                <div class="nav-icon"><img src="images/icon_radio.png" alt=""></div>
+                <p class="nav-label">Discover</p>
+            </div>
+        </div>
+        <div class="nav-item" data-menu="genres">
+            <div class="nav-content">
+                <div class="nav-icon"><img src="images/icon_musicnote.png" alt=""></div>
+                <p class="nav-label">Genres</p>
+            </div>
+        </div>
+        <div class="nav-item" data-menu="search">
+            <div class="nav-content">
+                <div class="nav-icon"><img src="images/icon_search.png" alt=""></div>
+                <p class="nav-label">Search</p>
+            </div>
+        </div>
+        <div class="nav-item" data-menu="favorites">
+            <div class="nav-content">
+                <div class="nav-icon"><img src="images/icon_heart.png" alt=""></div>
+                <p class="nav-label">Favorites</p>
+            </div>
+        </div>
+        <div class="nav-item" data-menu="records">
+            <div class="nav-content">
+                <div class="nav-icon"><img src="images/icon_record.png" alt=""></div>
+                <p class="nav-label">Records</p>
+            </div>
+        </div>
+        <div class="nav-item" data-menu="settings">
+            <div class="nav-content">
+                <div class="nav-icon"><img src="images/icon_settings.png" alt=""></div>
+                <p class="nav-label">Settings</p>
+            </div>
+        </div>
+    </nav>
     
     <div id="splash-page" class="page">
         <div class="splash-container">
@@ -39,45 +80,6 @@
                 <img src="images/bg_disco.png" alt="">
             </div>
             <div class="bg-gradient"></div>
-
-            <nav class="left-menu">
-                <div class="nav-item nav-item-active" data-menu="discover">
-                    <div class="nav-content">
-                        <div class="nav-icon"><img src="images/icon_radio.png" alt=""></div>
-                        <p class="nav-label">Discover</p>
-                    </div>
-                </div>
-                <div class="nav-item" data-menu="genres">
-                    <div class="nav-content">
-                        <div class="nav-icon"><img src="images/icon_musicnote.png" alt=""></div>
-                        <p class="nav-label">Genres</p>
-                    </div>
-                </div>
-                <div class="nav-item" data-menu="search">
-                    <div class="nav-content">
-                        <div class="nav-icon"><img src="images/icon_search.png" alt=""></div>
-                        <p class="nav-label">Search</p>
-                    </div>
-                </div>
-                <div class="nav-item" data-menu="favorites">
-                    <div class="nav-content">
-                        <div class="nav-icon"><img src="images/icon_heart.png" alt=""></div>
-                        <p class="nav-label">Favorites</p>
-                    </div>
-                </div>
-                <div class="nav-item" data-menu="records">
-                    <div class="nav-content">
-                        <div class="nav-icon"><img src="images/icon_record.png" alt=""></div>
-                        <p class="nav-label">Records</p>
-                    </div>
-                </div>
-                <div class="nav-item" data-menu="settings">
-                    <div class="nav-content">
-                        <div class="nav-icon"><img src="images/icon_settings.png" alt=""></div>
-                        <p class="nav-label">Settings</p>
-                    </div>
-                </div>
-            </nav>
 
             <div class="logo">
                 <div class="logo-icon"><img src="images/logo.png" alt=""></div>
@@ -380,6 +382,96 @@
         </div>
     </div>
     
+    <div id="search-page" class="page" style="display:none">
+        <div class="search-container">
+            <div class="bg-hand-crowd">
+                <img src="images/bg_disco.png" alt="">
+            </div>
+            <div class="bg-gradient-search"></div>
+
+            <div class="logo">
+                <div class="logo-icon"><img src="images/logo.png" alt=""></div>
+                <p class="logo-text"><span class="logo-bold">mega</span>radio</p>
+            </div>
+
+            <div class="location-selector">
+                <div class="location-content">
+                    <div class="location-flag"><img src="images/station_austria_1_1691_11039.png" alt=""></div>
+                    <p class="location-text">Austria</p>
+                    <div class="location-arrow">▼</div>
+                </div>
+            </div>
+
+            <div class="login-btn">
+                <p class="login-text">Login</p>
+            </div>
+
+            <p class="search-title-main">Search</p>
+
+            <div class="search-bar-container">
+                <div class="search-input-wrapper">
+                    <div class="search-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="11" cy="11" r="7" stroke="white" stroke-width="2"/>
+                            <path d="M20 20L16 16" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <input type="text" class="search-input" placeholder="Search radio or user" />
+                </div>
+            </div>
+
+            <div class="search-suggestions">
+                <div class="suggestion-item suggestion-active" style="left: 308px; top: 259px; width: 211px;">
+                    <p class="suggestion-text">Kral Radyo</p>
+                </div>
+                <div class="suggestion-item" style="left: 308px; top: 344px; width: 288px;">
+                    <p class="suggestion-text">Kral Radyo Ankara</p>
+                </div>
+                <div class="suggestion-item" style="left: 308px; top: 429px; width: 298px;">
+                    <p class="suggestion-text">Kral Radyo İstanbul</p>
+                </div>
+                <div class="suggestion-item" style="left: 308px; top: 514px; width: 298px;">
+                    <p class="suggestion-text">Kral Radyo İstanbul</p>
+                </div>
+            </div>
+
+            <p class="recently-played-title">Recently Played</p>
+
+            <div class="recently-played-grid">
+                <div class="radio-card" style="left: 1394px; top: 136px;">
+                    <div class="radio-logo"><img src="images/station_powerturk_tv_logosu_1_1691_10798.png" alt=""></div>
+                    <p class="radio-name">Power Türk</p>
+                    <p class="radio-genre">Türkçe Pop</p>
+                </div>
+                <div class="radio-card" style="left: 1624px; top: 136px;">
+                    <div class="radio-logo"><img src="images/station_alem_fm_1_1691_10876.png" alt=""></div>
+                    <p class="radio-name">Alem FM</p>
+                    <p class="radio-genre">World Music</p>
+                </div>
+                <div class="radio-card" style="left: 1394px; top: 430px;">
+                    <div class="radio-logo"><img src="images/station_0b75jzrr_400x400_1_1691_10820.png" alt=""></div>
+                    <p class="radio-name">Radio Mega</p>
+                    <p class="radio-genre">Top Hits</p>
+                </div>
+                <div class="radio-card" style="left: 1624px; top: 430px;">
+                    <div class="radio-logo"><img src="images/station_android_default_logo_1_1691_10844.png" alt=""></div>
+                    <p class="radio-name">Smooth Jazz</p>
+                    <p class="radio-genre">Jazz</p>
+                </div>
+                <div class="radio-card" style="left: 1394px; top: 724px;">
+                    <div class="radio-logo"><img src="images/station_meta_image_1_1_1691_10934.png" alt=""></div>
+                    <p class="radio-name">Classic Hits</p>
+                    <p class="radio-genre">Oldies</p>
+                </div>
+                <div class="radio-card" style="left: 1624px; top: 724px;">
+                    <div class="radio-logo"><img src="images/station_austria_1_1691_11039.png" alt=""></div>
+                    <p class="radio-name">Rock Nation</p>
+                    <p class="radio-genre">Rock</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <div id="player-page" class="page" style="display:none">
         <div class="container">
             <h1 class="title">Now Playing</h1>
@@ -405,6 +497,7 @@
     <script src="js/splash_operation.js"></script>
     <script src="js/home_operation.js"></script>
     <script src="js/genres_operation.js"></script>
+    <script src="js/search_operation.js"></script>
     
     <script>
         function updateTime() {

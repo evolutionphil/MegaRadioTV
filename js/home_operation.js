@@ -73,7 +73,7 @@ var home_page = (function() {
     }
     
     function setupMenuHandlers() {
-        var menuItems = document.querySelectorAll('.menu-item');
+        var menuItems = document.querySelectorAll('.nav-item');
         for (var i = 0; i < menuItems.length; i++) {
             (function(index, item) {
                 item.addEventListener('click', function() {
@@ -103,6 +103,11 @@ var home_page = (function() {
         
         if (menu === 'genres') {
             showPage('genres');
+            return;
+        }
+        
+        if (menu === 'search') {
+            showPage('search');
             return;
         }
         
@@ -149,7 +154,7 @@ var home_page = (function() {
     }
     
     function updateFocus() {
-        var menuItems = document.querySelectorAll('.menu-item');
+        var menuItems = document.querySelectorAll('.nav-item');
         var stationCards = document.querySelectorAll('.station-card');
         
         for (var i = 0; i < menuItems.length; i++) {
@@ -213,6 +218,10 @@ var home_page = (function() {
             var menu = menu_items[current_menu_index];
             if (menu === 'genres') {
                 showPage('genres');
+                return;
+            }
+            if (menu === 'search') {
+                showPage('search');
                 return;
             }
             handleMenuClick(current_menu_index);

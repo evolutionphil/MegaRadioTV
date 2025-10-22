@@ -42,6 +42,11 @@
     width: 98px;
 }
 
+.global-nav {
+    position: fixed;
+    z-index: 1000;
+}
+
 .nav-item {
     position: absolute;
     left: 0;

@@ -29,6 +29,9 @@ function init() {
         routeKeyEvent(e);
     });
     
+    // Setup sidebar navigation click handlers
+    setupSidebarNavigation();
+    
     // Handle visibility changes
     document.addEventListener('visibilitychange', function() {
         if(document.hidden){
@@ -39,6 +42,22 @@ function init() {
             console.log('App resumed');
         }
     });
+}
+
+// Setup sidebar navigation click handlers
+function setupSidebarNavigation() {
+    var navItems = document.querySelectorAll('.nav-item');
+    for (var i = 0; i < navItems.length; i++) {
+        (function(item) {
+            var menu = item.getAttribute('data-menu');
+            item.addEventListener('click', function() {
+                if (menu) {
+                    showPage(menu);
+                }
+            });
+            item.style.cursor = 'pointer';
+        })(navItems[i]);
+    }
 }
 
 // Route key events to active page

@@ -1,79 +1,150 @@
 var home_page = (function() {
-    var current_menu_index = 0;
-    var current_station_index = 0;
-    var menu_items = ['discover', 'genres', 'search', 'favorites', 'settings'];
-    var active_view = 'discover';
-    var filtered_stations = [];
-    var focus_area = 'menu';
-    var grid_cols = 6;
+    var popular_radios = [];
+    var country_stations = [];
     
     function init() {
-        console.log('Home page initialized');
-        loadStations();
-        setupMenuHandlers();
-        renderStations();
-        updateFocus();
-    }
-    
-    var popular_radios = [];
-    var austria_stations = [];
-    
-    function loadStations() {
-        try {
-            stations = loadFromStorage('stations') || [];
-            if (!Array.isArray(stations)) {
-                stations = [];
-            }
-        } catch (e) {
-            console.log('Storage error, using default stations:', e);
-            stations = [];
-            localStorage.clear();
+        console.log('Home page initialized - loading real API data');
+        var selectedCountry = API.getSelectedCountry();
+        
+        // Update country selector text
+        var selectors = document.querySelectorAll('.location-text');
+        for (var i = 0; i < selectors.length; i++) {
+            selectors[i].textContent = selectedCountry;
         }
         
-        if (stations.length === 0) {
-            popular_radios = [
-                {name: 'Power Türk FM', category: 'Türkçe Pop', logo: 'images/station_powertürk_tv_logosu_1_1691_10798.png', url: 'http://example.com/stream1'},
-                {name: 'Alem FM', category: 'World Music', logo: 'images/station_alem_fm_1_1691_10876.png', url: 'http://example.com/stream2'},
-                {name: 'Radio Mega', category: 'Top Hits', logo: 'images/station_0b75jzrr_400x400_1_1691_10820.png', url: 'http://example.com/stream3'},
-                {name: 'Smooth Jazz', category: 'Jazz', logo: 'images/station_android_default_logo_1_1691_10844.png', url: 'http://example.com/stream4'},
-                {name: 'Classic Hits', category: 'Oldies', logo: 'images/station_meta_image_1_1_1691_10934.png', url: 'http://example.com/stream5'},
-                {name: 'Rock Nation', category: 'Rock', logo: 'images/station_austria_1_1691_11039.png', url: 'http://example.com/stream6'},
-                {name: 'Electronic Beats', category: 'Electronic', logo: 'images/station_powertürk_tv_logosu_1_1691_10798.png', url: 'http://example.com/stream7'},
-                {name: 'Jazz Lounge', category: 'Jazz', logo: 'images/station_alem_fm_1_1691_10876.png', url: 'http://example.com/stream8'},
-                {name: 'Hip Hop Central', category: 'Hip Hop', logo: 'images/station_0b75jzrr_400x400_1_1691_10820.png', url: 'http://example.com/stream9'},
-                {name: 'Country Roads', category: 'Country', logo: 'images/station_android_default_logo_1_1691_10844.png', url: 'http://example.com/stream10'},
-                {name: 'Pop Hits 24/7', category: 'Pop', logo: 'images/station_meta_image_1_1_1691_10934.png', url: 'http://example.com/stream11'},
-                {name: 'Indie Vibes', category: 'Indie', logo: 'images/station_austria_1_1691_11039.png', url: 'http://example.com/stream12'}
-            ];
-            
-            austria_stations = [
-                {name: 'Austria FM', category: 'Austrian Pop', logo: 'images/station_austria_1_1691_11039.png', url: 'http://example.com/stream13'},
-                {name: 'Vienna Classics', category: 'Classical', logo: 'images/station_powertürk_tv_logosu_1_1691_10798.png', url: 'http://example.com/stream14'},
-                {name: 'Alpine Radio', category: 'Folk', logo: 'images/station_alem_fm_1_1691_10876.png', url: 'http://example.com/stream15'},
-                {name: 'Salzburg Sounds', category: 'Variety', logo: 'images/station_0b75jzrr_400x400_1_1691_10820.png', url: 'http://example.com/stream16'},
-                {name: 'Innsbruck Mix', category: 'Top 40', logo: 'images/station_android_default_logo_1_1691_10844.png', url: 'http://example.com/stream17'},
-                {name: 'Graz Grooves', category: 'Dance', logo: 'images/station_meta_image_1_1_1691_10934.png', url: 'http://example.com/stream18'},
-                {name: 'Austrian News', category: 'News', logo: 'images/station_austria_1_1691_11039.png', url: 'http://example.com/stream19'},
-                {name: 'Linz Live', category: 'Live Music', logo: 'images/station_powertürk_tv_logosu_1_1691_10798.png', url: 'http://example.com/stream20'},
-                {name: 'Danube Radio', category: 'Easy Listening', logo: 'images/station_alem_fm_1_1691_10876.png', url: 'http://example.com/stream21'},
-                {name: 'Tyrol Tunes', category: 'Regional', logo: 'images/station_0b75jzrr_400x400_1_1691_10820.png', url: 'http://example.com/stream22'},
-                {name: 'Vienna Voice', category: 'Talk', logo: 'images/station_android_default_logo_1_1691_10844.png', url: 'http://example.com/stream23'},
-                {name: 'Austrian Gold', category: 'Oldies', logo: 'images/station_meta_image_1_1_1691_10934.png', url: 'http://example.com/stream24'}
-            ];
-            
-            stations = popular_radios.concat(austria_stations);
-            saveToStorage('stations', stations);
-        } else {
-            var mid = Math.floor(stations.length / 2);
-            popular_radios = stations.slice(0, mid);
-            austria_stations = stations.slice(mid);
-        }
-        
-        filtered_stations = stations;
+        loadStations(selectedCountry);
     }
     
+    function loadStations(country) {
+        var popularContainer = document.getElementById('home-page').querySelector('.radios-container');
+        var countryContainer = document.getElementById('home-page').querySelectorAll('.radios-container')[1];
+        
+        if (popularContainer) {
+            popularContainer.innerHTML = '<div style="color: white; padding: 40px; text-align: center;">Loading Popular Radios...</div>';
+        }
+        if (countryContainer) {
+            countryContainer.innerHTML = '<div style="color: white; padding: 40px; text-align: center;">Loading ' + country + ' Stations...</div>';
+        }
+        
+        // Load popular stations (globally popular, limit 14)
+        API.getPopularStations(14)
+            .then(function(stations) {
+                popular_radios = stations;
+                renderPopularRadios();
+            })
+            .catch(function(error) {
+                console.error('Failed to load popular stations:', error);
+                if (popularContainer) {
+                    popularContainer.innerHTML = '<div style="color: white; padding: 40px; text-align: center;">Failed to load stations</div>';
+                }
+            });
+        
+        // Load stations by selected country (limit 14)
+        API.getStationsByCountry(country, 14)
+            .then(function(stations) {
+                country_stations = stations;
+                renderCountryStations();
+            })
+            .catch(function(error) {
+                console.error('Failed to load country stations:', error);
+                if (countryContainer) {
+                    countryContainer.innerHTML = '<div style="color: white; padding: 40px; text-align: center;">Failed to load stations</div>';
+                }
+            });
+    }
+    
+    function renderPopularRadios() {
+        var container = document.getElementById('home-page').querySelector('.radios-container');
+        if (!container) return;
+        
+        container.innerHTML = '';
+        
+        // Row 1: 7 cards
+        for (var i = 0; i < Math.min(7, popular_radios.length); i++) {
+            var card = createStationCard(popular_radios[i], i, i);
+            container.appendChild(card);
+        }
+        
+        // Row 2: 7 cards
+        for (var j = 7; j < Math.min(14, popular_radios.length); j++) {
+            var card = createStationCard(popular_radios[j], j, j);
+            container.appendChild(card);
+        }
+    }
+    
+    function renderCountryStations() {
+        var containers = document.getElementById('home-page').querySelectorAll('.radios-container');
+        var container = containers[1];
+        if (!container) return;
+        
+        container.innerHTML = '';
+        
+        // 14 cards total (2 rows of 7)
+        for (var i = 0; i < Math.min(14, country_stations.length); i++) {
+            var card = createStationCard(country_stations[i], i, i);
+            container.appendChild(card);
+        }
+    }
+    
+    function createStationCard(station, index, position) {
+        var positions = [
+            {left: 236, top: 539},
+            {left: 466, top: 539},
+            {left: 696, top: 539},
+            {left: 926, top: 539},
+            {left: 1156, top: 539},
+            {left: 1386, top: 539},
+            {left: 1616, top: 539},
+            {left: 236, top: 833},
+            {left: 466, top: 833},
+            {left: 696, top: 833},
+            {left: 926, top: 833},
+            {left: 1156, top: 833},
+            {left: 1386, top: 833},
+            {left: 1616, top: 833}
+        ];
+        
+        var pos = positions[position] || {left: 236, top: 539};
+        
+        var card = document.createElement('div');
+        card.className = 'radio-card';
+        card.style.left = pos.left + 'px';
+        card.style.top = pos.top + 'px';
+        card.style.cursor = 'pointer';
+        
+        var tags = station.tags || [];
+        var genre = tags.length > 0 ? tags[0] : (station.genre || 'Music');
+        
+        card.innerHTML = 
+            '<div class="radio-logo">' +
+                '<img src="' + station.favicon + '" alt="' + station.name + '">' +
+            '</div>' +
+            '<div class="radio-name">' + station.name + '</div>' +
+            '<div class="radio-genre">' + genre + '</div>';
+        
+        card.onclick = function() {
+            showPage('player', {
+                name: station.name,
+                song: 'Now Playing',
+                logo: station.favicon,
+                genre: genre,
+                tags: [station.bitrate + 'kb', station.codec, station.country, genre],
+                url: station.url_resolved,
+                stationId: station._id
+            });
+        };
+        
+        return card;
+    }
+    
+    return {
+        init: init
+    };
+})();
+
+document.addEventListener('DOMContentLoaded', function() {
     function setupMenuHandlers() {
-        var menuItems = document.querySelectorAll('.nav-item');
+        var menuItems = document.querySelectorAll('#home-page .nav-item');
         for (var i = 0; i < menuItems.length; i++) {
             (function(index, item) {
                 item.addEventListener('click', function() {

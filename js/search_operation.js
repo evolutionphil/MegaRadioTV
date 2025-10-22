@@ -1,18 +1,97 @@
 var search_page = {
-    current_suggestion_index: 0,
-    current_station_index: 0,
-    focus_area: 'search_bar',
-    stations_cols: 2,
-    stations_rows: 3,
+    search_results: [],
+    current_query: '',
     
     init: function() {
         console.log('Search page initialized');
-        this.current_suggestion_index = 0;
-        this.current_station_index = 0;
-        this.focus_area = 'search_bar';
+        var searchInput = document.querySelector('#search-page .search-input');
+        if (searchInput) {
+            searchInput.value = '';
+        }
         
-        $('.suggestion-item').removeClass('active');
-        $('.recently-played-grid .radio-card').removeClass('active');
+        this.search_results = [];
+        this.renderResults();
+    },
+    
+    performSearch: function(query) {
+        var self = this;
+        this.current_query = query;
+        var resultsContainer = document.getElementById('search-results-grid');
+        var selectedCountry = API.getSelectedCountry();
+        
+        if (!resultsContainer) return;
+        
+        if (!query || query.trim() === '') {
+            resultsContainer.innerHTML = '<div style="color: white; padding: 40px; text-align: center;">Enter a search term</div>';
+            return;
+        }
+        
+        resultsContainer.innerHTML = '<div style="color: white; padding: 40px; text-align: center;">Searching for "' + query + '"...</div>';
+        
+        API.searchStations(query, 18, selectedCountry)
+            .then(function(stations) {
+                self.search_results = stations;
+                self.renderResults();
+            })
+            .catch(function(error) {
+                console.error('Search failed:', error);
+                resultsContainer.innerHTML = '<div style="color: white; padding: 40px; text-align: center;">Search failed</div>';
+            });
+    },
+    
+    renderResults: function() {
+        var resultsContainer = document.getElementById('search-results-grid');
+        if (!resultsContainer) return;
+        
+        if (this.search_results.length === 0) {
+            resultsContainer.innerHTML = '<div style="color: white; padding: 40px; text-align: center;">No results found</div>';
+            return;
+        }
+        
+        resultsContainer.innerHTML = '';
+        
+        var positions = [
+            {x: 236, y: 316}, {x: 466, y: 316}, {x: 696, y: 316}, {x: 926, y: 316}, {x: 1156, y: 316}, {x: 1386, y: 316},
+            {x: 236, y: 610}, {x: 466, y: 610}, {x: 696, y: 610}, {x: 926, y: 610}, {x: 1156, y: 610}, {x: 1386, y: 610},
+            {x: 236, y: 904}, {x: 466, y: 904}, {x: 696, y: 904}, {x: 926, y: 904}, {x: 1156, y: 904}, {x: 1386, y: 904}
+        ];
+        
+        for (var i = 0; i < Math.min(18, this.search_results.length); i++) {
+            var station = this.search_results[i];
+            var pos = positions[i];
+            
+            var card = document.createElement('div');
+            card.className = 'radio-card';
+            card.style.left = pos.x + 'px';
+            card.style.top = pos.y + 'px';
+            card.style.cursor = 'pointer';
+            
+            var tags = station.tags || [];
+            var genre = tags.length > 0 ? tags[0] : 'Music';
+            
+            card.innerHTML =
+                '<div class="radio-logo">' +
+                    '<img src="' + station.favicon + '" alt="' + station.name + '">' +
+                '</div>' +
+                '<p class="radio-name">' + station.name + '</p>' +
+                '<p class="radio-genre">' + genre + '</p>';
+            
+            (function(stationData) {
+                card.onclick = function() {
+                    showPage('player', {
+                        name: stationData.name,
+                        song: 'Now Playing',
+                        logo: stationData.favicon,
+                        genre: genre,
+                        tags: [stationData.bitrate + 'kb', stationData.codec, stationData.country, genre],
+                        url: stationData.url_resolved,
+                        stationId: stationData._id
+                    });
+                };
+            })(station);
+            
+            resultsContainer.appendChild(card);
+        }
     },
     
     setActiveSuggestion: function() {

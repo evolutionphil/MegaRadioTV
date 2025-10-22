@@ -1,4 +1,5 @@
 var genre_detail_page = {
+    stations: [],
     current_station_index: 0,
     grid_cols: 6,
     grid_rows: 3,
@@ -8,11 +9,36 @@ var genre_detail_page = {
         console.log('Genre detail page initialized for:', genreName);
         this.current_genre = genreName || 'Pop';
         this.current_station_index = 0;
+        
+        var title = document.getElementById('genre-detail-page').querySelector('.genre-title');
+        if (title) {
+            title.textContent = genreName || 'Pop';
+        }
+        
         this.loadGenreStations();
-        this.updateFocus();
     },
     
     loadGenreStations: function() {
+        var self = this;
+        var gridContainer = document.getElementById('genre-detail-grid');
+        var selectedCountry = API.getSelectedCountry();
+        
+        if (!gridContainer) return;
+        
+        gridContainer.innerHTML = '<div style="color: white; padding: 40px; text-align: center;">Loading ' + this.current_genre + ' stations...</div>';
+        
+        API.getStationsByGenre(this.current_genre, 18, selectedCountry)
+            .then(function(stations) {
+                self.stations = stations;
+                self.renderStations();
+            })
+            .catch(function(error) {
+                console.error('Failed to load genre stations:', error);
+                gridContainer.innerHTML = '<div style="color: white; padding: 40px; text-align: center;">Failed to load stations</div>';
+            });
+    },
+    
+    renderStations: function() {
         var gridContainer = document.getElementById('genre-detail-grid');
         if (!gridContainer) return;
         
@@ -24,40 +50,40 @@ var genre_detail_page = {
             {x: 236, y: 904}, {x: 466, y: 904}, {x: 696, y: 904}, {x: 926, y: 904}, {x: 1156, y: 904}, {x: 1386, y: 904}
         ];
         
-        var station_images = [
-            'images/station_powerturk_tv_logosu_1_1691_10798.png',
-            'images/station_alem_fm_1_1691_10876.png',
-            'images/station_0b75jzrr_400x400_1_1691_10820.png',
-            'images/station_android_default_logo_1_1691_10844.png',
-            'images/station_meta_image_1_1_1691_10934.png',
-            'images/station_austria_1_1691_11039.png'
-        ];
-        
-        for (var i = 0; i < 18; i++) {
+        for (var i = 0; i < Math.min(18, this.stations.length); i++) {
+            var station = this.stations[i];
+            var pos = positions[i];
+            
             var card = document.createElement('div');
             card.className = 'radio-card';
-            card.style.left = positions[i].x + 'px';
-            card.style.top = positions[i].y + 'px';
+            card.style.left = pos.x + 'px';
+            card.style.top = pos.y + 'px';
+            card.style.cursor = 'pointer';
             card.setAttribute('data-index', i);
             
-            var logo = document.createElement('div');
-            logo.className = 'radio-logo';
-            var img = document.createElement('img');
-            img.src = station_images[i % station_images.length];
-            img.alt = 'Station ' + (i + 1);
-            logo.appendChild(img);
+            var tags = station.tags || [];
+            var genre = tags.length > 0 ? tags[0] : this.current_genre;
             
-            var name = document.createElement('p');
-            name.className = 'radio-name';
-            name.textContent = this.current_genre + ' Station ' + (i + 1);
+            card.innerHTML =
+                '<div class="radio-logo">' +
+                    '<img src="' + station.favicon + '" alt="' + station.name + '">' +
+                '</div>' +
+                '<p class="radio-name">' + station.name + '</p>' +
+                '<p class="radio-genre">' + genre + '</p>';
             
-            var genre = document.createElement('p');
-            genre.className = 'radio-genre';
-            genre.textContent = this.current_genre;
-            
-            card.appendChild(logo);
-            card.appendChild(name);
-            card.appendChild(genre);
+            (function(stationData) {
+                card.onclick = function() {
+                    showPage('player', {
+                        name: stationData.name,
+                        song: 'Now Playing',
+                        logo: stationData.favicon,
+                        genre: genre,
+                        tags: [stationData.bitrate + 'kb', stationData.codec, stationData.country, genre],
+                        url: stationData.url_resolved,
+                        stationId: stationData._id
+                    });
+                };
+            })(station);
             
             gridContainer.appendChild(card);
         }

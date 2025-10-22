@@ -98,14 +98,14 @@
 
             <p class="section-title genres-title">Popular Genres</p>
             
-            <div class="genre-btn genre-1"><p>Pop</p></div>
-            <div class="genre-btn genre-2"><p>Rock</p></div>
-            <div class="genre-btn genre-3"><p>Hip Hop</p></div>
-            <div class="genre-btn genre-4"><p>News</p></div>
-            <div class="genre-btn genre-5"><p>Country</p></div>
-            <div class="genre-btn genre-6"><p>Hip Hop</p></div>
-            <div class="genre-btn genre-7"><p>News</p></div>
-            <div class="genre-btn genre-8"><p>Country</p></div>
+            <div class="genre-btn genre-1" onclick="showPage('genre-detail', 'Pop')"><p>Pop</p></div>
+            <div class="genre-btn genre-2" onclick="showPage('genre-detail', 'Rock')"><p>Rock</p></div>
+            <div class="genre-btn genre-3" onclick="showPage('genre-detail', 'Hip Hop')"><p>Hip Hop</p></div>
+            <div class="genre-btn genre-4" onclick="showPage('genre-detail', 'News')"><p>News</p></div>
+            <div class="genre-btn genre-5" onclick="showPage('genre-detail', 'Country')"><p>Country</p></div>
+            <div class="genre-btn genre-6" onclick="showPage('genre-detail', 'Jazz')"><p>Hip Hop</p></div>
+            <div class="genre-btn genre-7" onclick="showPage('genre-detail', 'Electronic')"><p>News</p></div>
+            <div class="genre-btn genre-8" onclick="showPage('genre-detail', 'Classical')"><p>Country</p></div>
 
             <p class="section-title radios-title">Popular Radios</p>
             <p class="see-more-text see-more-radios">See More</p>
@@ -766,6 +766,75 @@
         }
         setInterval(updateTime, 1000);
         updateTime();
+        
+        // Add click handlers to all radio cards and genre cards
+        function setupClickHandlers() {
+            // Home page radio cards
+            document.querySelectorAll('#home-page .radio-card:not(.radio-card-seemore)').forEach(function(card) {
+                card.style.cursor = 'pointer';
+                card.onclick = function() {
+                    var name = card.querySelector('.radio-name')?.textContent || 'Unknown Station';
+                    var logo = card.querySelector('.radio-logo img')?.src || 'images/def_image.jpg';
+                    var genre = card.querySelector('.radio-genre')?.textContent || 'Music';
+                    
+                    showPage('player', {
+                        name: name,
+                        song: 'Now Playing',
+                        logo: logo,
+                        genre: genre,
+                        tags: ['128kb', 'MP3', 'AT', genre]
+                    });
+                };
+            });
+            
+            // Genre detail page radio cards
+            document.querySelectorAll('#genre-detail-page .radio-card').forEach(function(card) {
+                card.style.cursor = 'pointer';
+                card.onclick = function() {
+                    var name = card.querySelector('.radio-name')?.textContent || 'Unknown Station';
+                    var logo = card.querySelector('.radio-logo img')?.src || 'images/def_image.jpg';
+                    var genre = card.querySelector('.radio-genre')?.textContent || 'Music';
+                    
+                    showPage('player', {
+                        name: name,
+                        song: 'Now Playing',
+                        logo: logo,
+                        genre: genre,
+                        tags: ['128kb', 'MP3', 'AT', genre]
+                    });
+                };
+            });
+            
+            // Player page similar radio cards
+            document.querySelectorAll('#player-page .radio-card').forEach(function(card) {
+                card.style.cursor = 'pointer';
+                card.onclick = function() {
+                    var name = card.querySelector('.radio-name')?.textContent || 'Unknown Station';
+                    var logo = card.querySelector('.radio-logo img')?.src || 'images/def_image.jpg';
+                    var genre = card.querySelector('.radio-genre')?.textContent || 'Music';
+                    
+                    showPage('player', {
+                        name: name,
+                        song: 'Now Playing',
+                        logo: logo,
+                        genre: genre,
+                        tags: ['128kb', 'MP3', 'AT', genre]
+                    });
+                };
+            });
+            
+            // Genres page genre cards
+            document.querySelectorAll('#genres-page .genre-card').forEach(function(card, index) {
+                card.style.cursor = 'pointer';
+                card.onclick = function() {
+                    var genreName = card.querySelector('.genre-name')?.textContent || 'Pop';
+                    showPage('genre-detail', genreName);
+                };
+            });
+        }
+        
+        // Setup handlers after a short delay to ensure DOM is ready
+        setTimeout(setupClickHandlers, 500);
     </script>
 </body>
 </html>

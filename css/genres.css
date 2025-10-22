@@ -4,6 +4,7 @@
     min-height: 1920px;
     background: linear-gradient(156deg, rgb(70, 15, 40) 0%, rgb(14, 14, 14) 100%);
     margin: 0 auto;
+    margin-left: 0;
 }
 
 .bg-gradient-genres {

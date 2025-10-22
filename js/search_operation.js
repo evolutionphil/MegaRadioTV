@@ -10,7 +10,9 @@ var search_page = {
         this.current_suggestion_index = 0;
         this.current_station_index = 0;
         this.focus_area = 'search_bar';
-        this.setActiveSuggestion();
+        
+        $('.suggestion-item').removeClass('active');
+        $('.recently-played-grid .radio-card').removeClass('active');
     },
     
     setActiveSuggestion: function() {
@@ -69,6 +71,7 @@ var search_page = {
                     this.setActiveSuggestion();
                 } else {
                     this.focus_area = 'search_bar';
+                    $('.suggestion-item').removeClass('active');
                 }
                 break;
                 

@@ -111,6 +111,11 @@ var home_page = (function() {
             return;
         }
         
+        if (menu === 'favorites') {
+            showPage('favorites');
+            return;
+        }
+        
         updateFocus();
     }
     
@@ -222,6 +227,10 @@ var home_page = (function() {
             }
             if (menu === 'search') {
                 showPage('search');
+                return;
+            }
+            if (menu === 'favorites') {
+                showPage('favorites');
                 return;
             }
             handleMenuClick(current_menu_index);

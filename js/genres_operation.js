@@ -51,7 +51,12 @@ var genres_page = {
                 break;
                 
             case KEY_ENTER:
-                console.log('Genre selected');
+                var genreNames = ['Pop', 'Rock', 'Hip Hop', 'Jazz', 'Classical', 'Electronic', 'Country', 'R&B',
+                                  'Folk', 'Blues', 'Reggae', 'Metal', 'Latin', 'Soul', 'Dance', 'Indie',
+                                  'Alternative', 'Punk', 'World', 'News'];
+                var genreName = genreNames[this.current_row * this.grid_cols + this.current_col] || 'Pop';
+                console.log('Genre selected:', genreName);
+                showPage('genre-detail', genreName);
                 break;
                 
             case KEY_BACK:

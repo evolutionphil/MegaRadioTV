@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="css/homepage.css"/>
     <link rel="stylesheet" href="css/genres.css"/>
     <link rel="stylesheet" href="css/search.css"/>
+    <link rel="stylesheet" href="css/genre-detail.css"/>
+    <link rel="stylesheet" href="css/favorites.css"/>
     <link rel="stylesheet" href="css/responsive.css"/>
 </head>
 <body>
@@ -469,6 +471,64 @@
         </div>
     </div>
     
+    <div id="genre-detail-page" class="page" style="display:none">
+        <div class="genre-detail-container">
+            <div class="bg-hand-crowd">
+                <img src="images/bg_disco.png" alt="">
+            </div>
+            <div class="bg-gradient-genre-detail"></div>
+
+            <div class="logo">
+                <img src="images/logo.png" alt="">
+            </div>
+
+            <div class="location-selector">
+                <div class="location-content">
+                    <div class="location-flag"><img src="images/station_austria_1_1691_11039.png" alt=""></div>
+                    <p class="location-text">Austria</p>
+                    <div class="location-arrow">▼</div>
+                </div>
+            </div>
+
+            <div class="login-btn">
+                <p class="login-text">Login</p>
+            </div>
+
+            <p class="genre-detail-title">Popular Radios</p>
+
+            <div class="genre-detail-grid" id="genre-detail-grid"></div>
+        </div>
+    </div>
+    
+    <div id="favorites-page" class="page" style="display:none">
+        <div class="favorites-container">
+            <div class="bg-hand-crowd">
+                <img src="images/bg_disco.png" alt="">
+            </div>
+            <div class="bg-gradient-favorites"></div>
+
+            <div class="logo">
+                <img src="images/logo.png" alt="">
+            </div>
+
+            <div class="location-selector">
+                <div class="location-content">
+                    <div class="location-flag"><img src="images/station_austria_1_1691_11039.png" alt=""></div>
+                    <p class="location-text">Austria</p>
+                    <div class="location-arrow">▼</div>
+                </div>
+            </div>
+
+            <div class="login-btn">
+                <p class="login-text">Login</p>
+            </div>
+
+            <p class="favorites-title-main">Your Favorites</p>
+
+            <div class="favorites-grid" id="favorites-grid"></div>
+        </div>
+    </div>
+    
     <div id="player-page" class="page" style="display:none">
         <div class="container">
             <h1 class="title">Now Playing</h1>
@@ -495,6 +555,8 @@
     <script src="js/home_operation.js"></script>
     <script src="js/genres_operation.js"></script>
     <script src="js/search_operation.js"></script>
+    <script src="js/genre_detail_operation.js"></script>
+    <script src="js/favorites_operation.js"></script>
     
     <script>
         function updateTime() {

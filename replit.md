@@ -65,20 +65,23 @@ MegaRadioTV is a radio streaming application for Samsung Tizen and LG webOS Smar
 ## Application Flow
 1. **Splash Screen** - Auto-displays for 3 seconds on app start
 2. **Home Screen** - Main interface with left icon menu and station grid (Figma design implemented)
-3. **Player Screen** - Radio streaming (to be implemented)
+3. **Genres/Search/Favorites/Settings** - All pages with Figma designs
+4. **Player Screen** - Radio streaming interface with animated equalizer (Figma design implemented)
 
 ## Features
 - ✅ SPA architecture with page-based navigation
 - ✅ Platform detection (Samsung/LG/Web)
 - ✅ Remote control key handling (arrows, OK, RETURN, media keys)
 - ✅ Focus management for TV navigation
-- ✅ Home page with Figma design (disco background, left menu, 6-column station grid)
+- ✅ All 8 pages with exact Figma designs (home, genres, search, genre-detail, favorites, settings, player, splash)
 - ✅ Station grid display with white cards (200x264px)
 - ✅ LocalStorage persistence
-- ✅ Menu-based navigation (Discover, Genres, Search, Favorites, Records, Settings)
+- ✅ Menu-based navigation (Discover, Genres, Search, Favorites, Settings)
+- ✅ Country selector modal (accessible from all pages)
+- ✅ Player page with animated equalizer and controls
 - ⏳ M3U playlist parsing
-- ⏳ Audio streaming
-- ⏳ Favorites functionality
+- ⏳ Audio streaming backend
+- ⏳ Favorites save/load functionality
 
 ## Development Setup
 **Server**: Python HTTP Server
@@ -116,14 +119,41 @@ Configured for autoscale deployment.
 - `npm run sm:pack` - Create .wgt package
 
 ## Development Status
-**Current**: Home page Figma design implemented with exact 1:1 layout
+**Current**: All 8 pages complete with exact Figma 1:1 designs
 **Next**: 
-1. Implement audio player
-2. Add M3U playlist loading
-3. Implement favorites functionality
-4. Match Figma design for splash screen (if different from current)
+1. Implement audio streaming backend (HLS/MP3)
+2. Add M3U playlist parsing and loading
+3. Implement favorites save/load to LocalStorage
+4. Add search functionality
+5. Connect genre filtering
+
+## User Preferences
+- **NO LOGIN BUTTONS** - User requested all login buttons removed (except logout in settings)
+- **CLEAN SEARCH** - Search page should have minimal UI (no country selector, equalizer, or login)
+- **COUNTRY MODAL** - Must be accessible from location selector on all pages
+- **EXACT FIGMA MATCH** - All layouts use absolute positioning at 1920x1080px resolution
 
 ## Recent Changes
+- 2025-10-22: **PLAYER PAGE & UI CLEANUP (ARCHITECT APPROVED)**
+  - **Player page implemented** (Figma node 1597-3968):
+    - Full 1920x1080 layout with station logo (296x296px at 236,242)
+    - Animated equalizer with 3 bars (CSS keyframe animations)
+    - Station name (48px font) and song info (32px font)
+    - Flag, tags display (128kb, MP3, AT, Rock, Classic)
+    - 4 control buttons: Previous, Play/Pause, Next, Favorite
+    - Proper focus handling with LEFT/RIGHT/ENTER key navigation
+    - Play/pause toggle updates icon and maintains focus
+  - **UI Cleanup across all pages**:
+    - Removed all login buttons (home, genres, search, favorites, settings)
+    - Kept logout button in settings user panel
+    - Search page cleaned: removed country selector, login, equalizer
+    - Added equalizer icon to home, genres, favorites headers (1281, 67)
+    - Made country modal clickable from all pages via location selector
+  - **JavaScript improvements**:
+    - Created player_operation.js with full control logic
+    - Fixed focus handling bugs (only one active button at a time)
+    - Fixed play/pause toggle to maintain focus after state change
+    - Proper key routing in main.js for player page
 - 2025-10-22: **COMPLETE FIGMA REBUILD - EXACT 1:1 MATCH (ARCHITECT APPROVED)**
   - **Layout**: Pure absolute positioning matching Figma coordinates exactly
   - **Background**: Purple/magenta gradient (156deg: rgb(70,15,40) → rgb(14,14,14))

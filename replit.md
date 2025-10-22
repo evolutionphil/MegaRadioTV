@@ -47,13 +47,22 @@ MegaRadioTV is a radio streaming application for Samsung Tizen and LG webOS Smar
 │   ├── main.js                   # App initialization & platform detection
 │   ├── common.js                 # Shared utilities & M3U parser
 │   ├── keyTizen.js               # Remote control key mapping
+│   ├── api.js                    # API service module (Mega Radio API)
+│   ├── country_modal.js          # Country selector modal
 │   ├── splash_operation.js       # Splash screen controller
-│   └── home_operation.js         # Homepage controller
+│   ├── home_operation.js         # Homepage controller
+│   ├── genres_operation.js       # Genres page controller
+│   ├── genre_detail_operation.js # Genre detail page controller
+│   ├── search_operation.js       # Search page controller
+│   ├── player_operation.js       # Player page controller
+│   ├── favorites_operation.js    # Favorites page controller
+│   └── settings_operation.js     # Settings page controller
 │
 ├── images/                       # All image assets
 │   ├── app_launcher.png          # TV launcher icon
 │   ├── logo.png                  # App logo
 │   ├── bg_disco.png              # Home page background (from Figma)
+│   ├── fallback-favicon.png      # Fallback station logo (1024x1024px)
 │   └── def_image.jpg             # Default station image
 │
 ├── webOSTVjs-1.2.0/              # LG webOS SDK
@@ -79,8 +88,15 @@ MegaRadioTV is a radio streaming application for Samsung Tizen and LG webOS Smar
 - ✅ Menu-based navigation (Discover, Genres, Search, Favorites, Settings)
 - ✅ Country selector modal (accessible from all pages)
 - ✅ Player page with animated equalizer and controls
-- ⏳ M3U playlist parsing
-- ⏳ Audio streaming backend
+- ✅ **Mega Radio API Integration** (https://themegaradio.com)
+  - All Smart TV requests include `?tv=1` query parameter
+  - Real station data on all pages (home, genres, genre-detail, search, player)
+  - Global country filtering with localStorage persistence
+  - Search functionality with debounced input (500ms)
+  - Fallback favicon for stations without logos
+  - Dynamic genre loading and filtering
+  - Similar stations on player page
+- ⏳ Audio streaming backend (HLS/MP3)
 - ⏳ Favorites save/load functionality
 
 ## Development Setup
@@ -119,13 +135,13 @@ Configured for autoscale deployment.
 - `npm run sm:pack` - Create .wgt package
 
 ## Development Status
-**Current**: All 8 pages complete with exact Figma 1:1 designs
+**Current**: All 8 pages complete with exact Figma 1:1 designs + Full API integration
 **Next**: 
-1. Implement audio streaming backend (HLS/MP3)
-2. Add M3U playlist parsing and loading
-3. Implement favorites save/load to LocalStorage
-4. Add search functionality
-5. Connect genre filtering
+1. Implement audio streaming backend (HLS/MP3 playback)
+2. Implement favorites save/load to LocalStorage
+3. Test on real Samsung Tizen and LG webOS hardware
+4. Add error handling UI for API failures
+5. Optimize performance for TV hardware
 
 ## User Preferences
 - **NO LOGIN BUTTONS** - User requested all login buttons removed (except logout in settings)
@@ -133,7 +149,44 @@ Configured for autoscale deployment.
 - **COUNTRY MODAL** - Must be accessible from location selector on all pages
 - **EXACT FIGMA MATCH** - All layouts use absolute positioning at 1920x1080px resolution
 
+## API Integration
+**Base URL**: https://themegaradio.com (fallback: https://megaradio.live)
+**Smart TV Parameter**: All requests MUST include `?tv=1`
+
+### API Endpoints Used
+- `GET /api/countries?tv=1` - List of all countries
+- `GET /api/genres?tv=1` - List of all genres
+- `GET /api/stations/popular?tv=1&limit=N` - Popular stations
+- `GET /api/stations?tv=1&country=X&limit=N` - Stations by country
+- `GET /api/genres/:slug/stations?tv=1` - Stations by genre
+- `GET /api/stations?tv=1&search=query` - Search stations
+- `GET /api/stations/similar/:id?tv=1` - Similar stations
+
+### API Service (js/api.js)
+Centralized API service module that:
+- Adds `?tv=1` to all Smart TV requests
+- Normalizes station data (favicon fallback, url_resolved)
+- Handles errors with console logging
+- Provides consistent fetch interface
+
 ## Recent Changes
+- 2025-10-22: **COMPLETE MEGA RADIO API INTEGRATION (ARCHITECT APPROVED)**
+  - **Created js/api.js** - Complete API service module with all endpoints
+    - GET /api/countries, genres, stations/popular, stations (by country), genres/:slug/stations
+    - GET /api/stations (search), stations/similar/:id
+    - All Smart TV requests include `?tv=1` parameter
+    - Station normalization: fallback favicon, url_resolved
+  - **Updated all page operations** to use real API data:
+    - home_operation.js: Popular stations + stations by selected country
+    - genres_operation.js: Dynamic genre loading from API
+    - genre_detail_operation.js: Stations by genre with country filtering
+    - search_operation.js: Real search with debounced input (500ms)
+    - player_operation.js: Similar stations from API
+    - country_modal.js: Real countries from API
+  - **Global country filtering**: Selected country persists across all pages via localStorage
+  - **Fallback favicon**: images/fallback-favicon.png used when station.favicon missing
+  - **HTML updates**: Added container IDs for dynamic content (search-results-grid, radios-container)
+  - **NO mock data remaining** - All pages use live API responses
 - 2025-10-22: **RADIO STATION DETAIL PAGE - SIMILAR RADIOS SECTION**
   - Added "Similar Radios" section to player page at y=659px
   - 12 station cards in two rows (6 per row at y=733 and y=1027)

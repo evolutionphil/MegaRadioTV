@@ -20,13 +20,8 @@ window.onload = function() {
 function init() {
     console.log('init() called - platform: ' + platform);
     
-    // Show splash screen
-    showPage('splash');
-    
-    // Auto-transition to home after 3 seconds
-    setTimeout(function() {
-        showPage('home');
-    }, 3000);
+    // Skip splash for testing - go directly to home
+    showPage('home');
     
     // Setup key handlers
     document.addEventListener('keydown', function(e) {

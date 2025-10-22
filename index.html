@@ -6,11 +6,9 @@
     <meta name="description" content="Mega Radio TV - Your favorite radio stations on TV"/>
     <title>Mega Radio TV</title>
     
-    <!-- Vendor CSS -->
     <link rel="stylesheet" href="css/libs/bootstrap4.4.1.min.css"/>
     <link rel="stylesheet" href="css/libs/fontawesome-all.min.css"/>
     
-    <!-- App CSS -->
     <link rel="stylesheet" href="css/variables.css"/>
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="css/splash.css"/>
@@ -19,7 +17,6 @@
 </head>
 <body>
     
-    <!-- Splash Page -->
     <div id="splash-page" class="page">
         <div class="splash-container">
             <img src="images/logo.png" alt="Mega Radio TV" class="splash-logo">
@@ -35,92 +32,120 @@
         </div>
     </div>
     
-    <!-- Home Page -->
     <div id="home-page" class="page" style="display:none">
-        <!-- Background -->
         <div class="home-bg"></div>
         <div class="home-overlay"></div>
         
-        <!-- Content -->
         <div class="home-container">
-            <!-- Top Logo -->
-            <div class="home-logo-area">
-                <img src="images/logo.png" alt="Mega Radio" class="home-logo">
+            <div class="home-top-bar">
+                <div class="home-logo-area">
+                    <img src="images/logo.png" alt="Mega Radio" class="home-logo">
+                </div>
+                <div class="home-top-right">
+                    <img src="images/icon_equalizer.png" alt="Equalizer" class="top-equalizer-icon">
+                    <div class="country-selector">
+                        <img src="images/station_austria_1_1691_11039.png" alt="Austria" class="country-flag">
+                        <span>Austria</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </div>
+                    <button class="login-btn">
+                        <span>Login</span>
+                    </button>
+                </div>
             </div>
             
-            <!-- Left Sidebar Menu -->
             <nav class="home-sidebar">
                 <ul class="menu-list">
                     <li class="menu-item active" data-menu="discover">
-                        <i class="fas fa-broadcast-tower"></i>
+                        <img src="images/icon_radio.png" alt="Discover" class="menu-icon">
                         <span>Discover</span>
                     </li>
                     <li class="menu-item" data-menu="genres">
-                        <i class="fas fa-music"></i>
+                        <img src="images/icon_musicnote.png" alt="Genres" class="menu-icon">
                         <span>Genres</span>
                     </li>
                     <li class="menu-item" data-menu="search">
-                        <i class="fas fa-search"></i>
+                        <img src="images/icon_search.png" alt="Search" class="menu-icon">
                         <span>Search</span>
                     </li>
                     <li class="menu-item" data-menu="favorites">
-                        <i class="fas fa-heart"></i>
+                        <img src="images/icon_heart.png" alt="Favorites" class="menu-icon">
                         <span>Favorites</span>
                     </li>
                     <li class="menu-item" data-menu="records">
-                        <i class="fas fa-circle"></i>
+                        <img src="images/icon_record.png" alt="Records" class="menu-icon">
                         <span>Records</span>
                     </li>
                     <li class="menu-item" data-menu="settings">
-                        <i class="fas fa-cog"></i>
+                        <img src="images/icon_settings.png" alt="Settings" class="menu-icon">
                         <span>Settings</span>
                     </li>
                 </ul>
             </nav>
             
-            <!-- Main Content - Station Grid -->
             <main class="home-main">
-                <div id="station-grid" class="station-grid">
-                    <!-- Stations will be inserted dynamically -->
-                </div>
+                
+                <section class="content-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Popular Genres</h2>
+                        <img src="images/icon_equalizer.png" alt="" class="section-icon">
+                    </div>
+                    <div class="genre-buttons">
+                        <button class="genre-btn active">Pop</button>
+                        <button class="genre-btn">Rock</button>
+                        <button class="genre-btn">Hip Hop</button>
+                        <button class="genre-btn">News</button>
+                        <button class="genre-btn">Country</button>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Popular Radios</h2>
+                        <a href="#" class="see-more">See More</a>
+                    </div>
+                    <div class="station-grid" id="popular-radios-grid">
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <div class="section-header">
+                        <h2 class="section-title">More From Austria</h2>
+                        <a href="#" class="see-more">See More</a>
+                    </div>
+                    <div class="station-grid" id="austria-stations-grid">
+                    </div>
+                </section>
             </main>
         </div>
     </div>
     
-    <!-- Player Page -->
     <div id="player-page" class="page" style="display:none">
         <div class="container">
             <h1 class="title">Now Playing</h1>
             <div id="player-info">
-                <!-- Player UI will be here -->
             </div>
         </div>
     </div>
     
-    <!-- Global Loader -->
     <div id="loader">
         <div class="loader-spinner"></div>
     </div>
     
-    <!-- Platform SDKs -->
-    <script src="webOSTVjs-1.2.0/webOSTV.js"></script>
+    <!-- <script src="webOSTVjs-1.2.0/webOSTV.js"></script> -->
     
-    <!-- Vendor JavaScript -->
     <script src="js/libs/jquery-3.4.1.min.js"></script>
     <script src="js/libs/bootstrap.min.js"></script>
     <script src="js/libs/moment.min.js"></script>
     
-    <!-- App JavaScript -->
     <script src="js/common.js"></script>
     <script src="js/keyTizen.js"></script>
     <script src="js/main.js"></script>
     
-    <!-- Page Controllers -->
     <script src="js/splash_operation.js"></script>
     <script src="js/home_operation.js"></script>
     
     <script>
-        // Update time
         function updateTime() {
             var timeEl = document.getElementById('current-time');
             if (timeEl) {

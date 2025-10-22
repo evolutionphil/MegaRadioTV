@@ -12,10 +12,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('../images/bg_disco.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background: linear-gradient(135deg, #c73184 0%, #7b2f7e 50%, #2d1b3d 100%);
     z-index: 1;
 }
 
@@ -25,7 +22,11 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(180deg, rgba(13, 13, 13, 0) 0%, rgba(13, 13, 13, 1) 100%);
+    background-image: url('../images/bg_disco.png');
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    opacity: 0.4;
     z-index: 2;
 }
 
@@ -39,22 +40,100 @@
     padding: 40px 60px;
 }
 
-.home-logo-area {
+.home-top-bar {
     position: absolute;
-    top: 70px;
-    left: 50px;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 50px;
     z-index: 10;
 }
 
+.home-logo-area {
+    display: flex;
+    align-items: center;
+}
+
 .home-logo {
-    width: 164px;
-    height: 57px;
+    width: 140px;
+    height: auto;
+}
+
+.home-top-right {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.top-equalizer-icon {
+    width: 32px;
+    height: 32px;
+}
+
+.country-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 25px;
+    padding: 8px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.country-selector:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.country-flag {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+}
+
+.country-selector span {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 1);
+}
+
+.dropdown-arrow {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.login-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 25px;
+    padding: 10px 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.login-btn span {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 1);
 }
 
 .home-sidebar {
     position: absolute;
     left: 50px;
-    top: 167px;
+    top: 120px;
     width: 98px;
     height: auto;
     z-index: 10;
@@ -80,10 +159,11 @@
     background: rgba(255, 255, 255, 1);
 }
 
-.menu-item i {
-    font-size: 28px;
-    color: rgba(0, 0, 0, 0.7);
+.menu-icon {
+    width: 28px;
+    height: 28px;
     margin-bottom: 6px;
+    opacity: 0.7;
     transition: all 0.3s ease;
 }
 
@@ -91,14 +171,14 @@
     font-family: 'Ubuntu', sans-serif;
     font-size: 18px;
     font-weight: 500;
-    color: rgba(0, 0, 0, 0.8);
+    color: rgba(13, 13, 13, 1);
     text-align: center;
     transition: all 0.3s ease;
 }
 
-.menu-item.active i,
-.menu-item:hover i {
-    color: #000000;
+.menu-item.active .menu-icon,
+.menu-item:hover .menu-icon {
+    opacity: 1;
 }
 
 .menu-item.active span,
@@ -114,10 +194,77 @@
 
 .home-main {
     margin-left: 190px;
-    margin-top: 120px;
+    margin-top: 60px;
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
+    padding-right: 40px;
+}
+
+.content-section {
+    margin-bottom: 60px;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.section-title {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 1);
+    margin: 0;
+}
+
+.section-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.see-more {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.see-more:hover {
+    color: rgba(255, 255, 255, 1);
+    text-decoration: underline;
+}
+
+.genre-buttons {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.genre-btn {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(60, 40, 60, 0.6);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 25px;
+    padding: 12px 32px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.genre-btn:hover,
+.genre-btn.active {
+    background: rgba(80, 50, 80, 0.8);
+    border-color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 1);
+    transform: translateY(-2px);
 }
 
 .station-grid {
@@ -131,7 +278,7 @@
 .station-card {
     width: 200px;
     height: 264px;
-    background: rgba(255, 255, 255, 1);
+    background: rgba(45, 45, 50, 0.9);
     border-radius: 11px;
     overflow: hidden;
     cursor: pointer;
@@ -140,7 +287,7 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 .station-card.active,

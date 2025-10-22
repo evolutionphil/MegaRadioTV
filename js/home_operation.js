@@ -1,4 +1,3 @@
-// Home Page Controller - Enhanced for TV Navigation
 var home_page = (function() {
     var current_menu_index = 0;
     var current_station_index = 0;
@@ -12,35 +11,65 @@ var home_page = (function() {
         console.log('Home page initialized');
         loadStations();
         setupMenuHandlers();
+        renderStations();
         updateFocus();
     }
     
+    var popular_radios = [];
+    var austria_stations = [];
+    
     function loadStations() {
-        stations = loadFromStorage('stations') || [];
+        try {
+            stations = loadFromStorage('stations') || [];
+            if (!Array.isArray(stations)) {
+                stations = [];
+            }
+        } catch (e) {
+            console.log('Storage error, using default stations:', e);
+            stations = [];
+            localStorage.clear();
+        }
         
         if (stations.length === 0) {
-            stations = [
-                {name: 'Classic Rock FM', category: 'Music', logo: 'images/def_image.jpg', url: 'http://example.com/stream1'},
-                {name: 'Jazz Lounge', category: 'Music', logo: 'images/def_image.jpg', url: 'http://example.com/stream2'},
-                {name: 'Electronic Beats', category: 'Music', logo: 'images/def_image.jpg', url: 'http://example.com/stream3'},
-                {name: 'Country Gold', category: 'Music', logo: 'images/def_image.jpg', url: 'http://example.com/stream4'},
-                {name: 'Pop Hits', category: 'Music', logo: 'images/def_image.jpg', url: 'http://example.com/stream5'},
-                {name: 'Indie Vibes', category: 'Music', logo: 'images/def_image.jpg', url: 'http://example.com/stream6'},
-                {name: 'News 24/7', category: 'News', logo: 'images/def_image.jpg', url: 'http://example.com/stream7'},
-                {name: 'World News Radio', category: 'News', logo: 'images/def_image.jpg', url: 'http://example.com/stream8'},
-                {name: 'Business Today', category: 'News', logo: 'images/def_image.jpg', url: 'http://example.com/stream9'},
-                {name: 'Sports Talk Live', category: 'Sports', logo: 'images/def_image.jpg', url: 'http://example.com/stream10'},
-                {name: 'Football Central', category: 'Sports', logo: 'images/def_image.jpg', url: 'http://example.com/stream11'},
-                {name: 'Sports Update', category: 'Sports', logo: 'images/def_image.jpg', url: 'http://example.com/stream12'},
-                {name: 'Morning Show', category: 'Talk', logo: 'images/def_image.jpg', url: 'http://example.com/stream13'},
-                {name: 'Night Talk', category: 'Talk', logo: 'images/def_image.jpg', url: 'http://example.com/stream14'},
-                {name: 'Comedy Hour', category: 'Talk', logo: 'images/def_image.jpg', url: 'http://example.com/stream15'},
-                {name: 'Cultural Insights', category: 'Culture', logo: 'images/def_image.jpg', url: 'http://example.com/stream16'},
-                {name: 'Arts & Ideas', category: 'Culture', logo: 'images/def_image.jpg', url: 'http://example.com/stream17'},
-                {name: 'Book Club Radio', category: 'Culture', logo: 'images/def_image.jpg', url: 'http://example.com/stream18'}
+            popular_radios = [
+                {name: 'Power Türk FM', category: 'Türkçe Pop', logo: 'images/station_powertürk_tv_logosu_1_1691_10798.png', url: 'http://example.com/stream1'},
+                {name: 'Alem FM', category: 'World Music', logo: 'images/station_alem_fm_1_1691_10876.png', url: 'http://example.com/stream2'},
+                {name: 'Radio Mega', category: 'Top Hits', logo: 'images/station_0b75jzrr_400x400_1_1691_10820.png', url: 'http://example.com/stream3'},
+                {name: 'Smooth Jazz', category: 'Jazz', logo: 'images/station_android_default_logo_1_1691_10844.png', url: 'http://example.com/stream4'},
+                {name: 'Classic Hits', category: 'Oldies', logo: 'images/station_meta_image_1_1_1691_10934.png', url: 'http://example.com/stream5'},
+                {name: 'Rock Nation', category: 'Rock', logo: 'images/station_austria_1_1691_11039.png', url: 'http://example.com/stream6'},
+                {name: 'Electronic Beats', category: 'Electronic', logo: 'images/station_powertürk_tv_logosu_1_1691_10798.png', url: 'http://example.com/stream7'},
+                {name: 'Jazz Lounge', category: 'Jazz', logo: 'images/station_alem_fm_1_1691_10876.png', url: 'http://example.com/stream8'},
+                {name: 'Hip Hop Central', category: 'Hip Hop', logo: 'images/station_0b75jzrr_400x400_1_1691_10820.png', url: 'http://example.com/stream9'},
+                {name: 'Country Roads', category: 'Country', logo: 'images/station_android_default_logo_1_1691_10844.png', url: 'http://example.com/stream10'},
+                {name: 'Pop Hits 24/7', category: 'Pop', logo: 'images/station_meta_image_1_1_1691_10934.png', url: 'http://example.com/stream11'},
+                {name: 'Indie Vibes', category: 'Indie', logo: 'images/station_austria_1_1691_11039.png', url: 'http://example.com/stream12'}
             ];
+            
+            austria_stations = [
+                {name: 'Austria FM', category: 'Austrian Pop', logo: 'images/station_austria_1_1691_11039.png', url: 'http://example.com/stream13'},
+                {name: 'Vienna Classics', category: 'Classical', logo: 'images/station_powertürk_tv_logosu_1_1691_10798.png', url: 'http://example.com/stream14'},
+                {name: 'Alpine Radio', category: 'Folk', logo: 'images/station_alem_fm_1_1691_10876.png', url: 'http://example.com/stream15'},
+                {name: 'Salzburg Sounds', category: 'Variety', logo: 'images/station_0b75jzrr_400x400_1_1691_10820.png', url: 'http://example.com/stream16'},
+                {name: 'Innsbruck Mix', category: 'Top 40', logo: 'images/station_android_default_logo_1_1691_10844.png', url: 'http://example.com/stream17'},
+                {name: 'Graz Grooves', category: 'Dance', logo: 'images/station_meta_image_1_1_1691_10934.png', url: 'http://example.com/stream18'},
+                {name: 'Austrian News', category: 'News', logo: 'images/station_austria_1_1691_11039.png', url: 'http://example.com/stream19'},
+                {name: 'Linz Live', category: 'Live Music', logo: 'images/station_powertürk_tv_logosu_1_1691_10798.png', url: 'http://example.com/stream20'},
+                {name: 'Danube Radio', category: 'Easy Listening', logo: 'images/station_alem_fm_1_1691_10876.png', url: 'http://example.com/stream21'},
+                {name: 'Tyrol Tunes', category: 'Regional', logo: 'images/station_0b75jzrr_400x400_1_1691_10820.png', url: 'http://example.com/stream22'},
+                {name: 'Vienna Voice', category: 'Talk', logo: 'images/station_android_default_logo_1_1691_10844.png', url: 'http://example.com/stream23'},
+                {name: 'Austrian Gold', category: 'Oldies', logo: 'images/station_meta_image_1_1_1691_10934.png', url: 'http://example.com/stream24'}
+            ];
+            
+            stations = popular_radios.concat(austria_stations);
             saveToStorage('stations', stations);
+        } else {
+            var mid = Math.floor(stations.length / 2);
+            popular_radios = stations.slice(0, mid);
+            austria_stations = stations.slice(mid);
         }
+        
+        filtered_stations = stations;
     }
     
     function setupMenuHandlers() {
@@ -53,48 +82,64 @@ var home_page = (function() {
             })(i, menuItems[i]);
         }
         
-        filtered_stations = stations;
-        renderStations();
+        var genreButtons = document.querySelectorAll('.genre-btn');
+        for (var j = 0; j < genreButtons.length; j++) {
+            (function(btn) {
+                btn.addEventListener('click', function() {
+                    var allBtns = document.querySelectorAll('.genre-btn');
+                    for (var k = 0; k < allBtns.length; k++) {
+                        allBtns[k].classList.remove('active');
+                    }
+                    btn.classList.add('active');
+                });
+            })(genreButtons[j]);
+        }
     }
     
     function handleMenuClick(index) {
         current_menu_index = index;
         var menu = menu_items[index];
         active_view = menu;
-        
-        if (menu === 'discover') {
-            filtered_stations = stations;
-        } else if (menu === 'genres') {
-            filtered_stations = stations.filter(function(s) { return s.category === 'Music'; });
-        } else if (menu === 'favorites') {
-            filtered_stations = loadFromStorage('favorites') || [];
-        } else {
-            filtered_stations = stations;
-        }
-        
-        renderStations();
         updateFocus();
     }
     
     function renderStations() {
-        var grid = document.getElementById('station-grid');
-        if (!grid) return;
+        var popularGrid = document.getElementById('popular-radios-grid');
+        var austriaGrid = document.getElementById('austria-stations-grid');
         
-        grid.innerHTML = '';
-        for (var i = 0; i < filtered_stations.length; i++) {
-            var station = filtered_stations[i];
-            var card = document.createElement('div');
-            card.className = 'station-card';
-            card.setAttribute('data-index', i);
-            card.innerHTML = 
-                '<img src="' + (station.logo || 'images/def_image.jpg') + '" class="station-logo" alt="' + station.name + '">' +
-                '<div class="station-name">' + station.name + '</div>' +
-                '<div class="station-category">' + station.category + '</div>';
-            grid.appendChild(card);
+        if (popularGrid) {
+            popularGrid.innerHTML = '';
+            for (var i = 0; i < popular_radios.length; i++) {
+                var station = popular_radios[i];
+                var card = createStationCard(station, i);
+                popularGrid.appendChild(card);
+            }
         }
         
-        current_station_index = 0;
-        updateFocus();
+        if (austriaGrid) {
+            austriaGrid.innerHTML = '';
+            for (var j = 0; j < austria_stations.length; j++) {
+                var station = austria_stations[j];
+                var card = createStationCard(station, j + popular_radios.length);
+                austriaGrid.appendChild(card);
+            }
+        }
+    }
+    
+    function createStationCard(station, index) {
+        var card = document.createElement('div');
+        card.className = 'station-card';
+        card.setAttribute('data-index', index);
+        card.innerHTML = 
+            '<img src="' + (station.logo || 'images/def_image.jpg') + '" class="station-logo" alt="' + station.name + '">' +
+            '<div class="station-name">' + station.name + '</div>' +
+            '<div class="station-category">' + station.category + '</div>';
+        
+        card.addEventListener('click', function() {
+            playStation(station);
+        });
+        
+        return card;
     }
     
     function updateFocus() {
@@ -118,7 +163,6 @@ var home_page = (function() {
     
     function scrollIntoViewIfNeeded(element) {
         if (!element) return;
-        
         var parent = element.parentElement;
         if (!parent) return;
         
@@ -156,17 +200,13 @@ var home_page = (function() {
             }
             moved = true;
         } else if (e.keyCode === keys.RIGHT) {
-            if (filtered_stations.length > 0) {
-                focus_area = 'station';
-                current_station_index = 0;
-                moved = true;
-            }
+            focus_area = 'station';
+            current_station_index = 0;
+            moved = true;
         } else if (e.keyCode === keys.ENTER) {
             handleMenuClick(current_menu_index);
-            if (filtered_stations.length > 0) {
-                focus_area = 'station';
-                current_station_index = 0;
-            }
+            focus_area = 'station';
+            current_station_index = 0;
             moved = true;
         }
         
@@ -178,6 +218,8 @@ var home_page = (function() {
     function handleStationKeys(e) {
         var moved = false;
         var oldIndex = current_station_index;
+        var stationCards = document.querySelectorAll('.station-card');
+        var totalStations = stationCards.length;
         
         if (e.keyCode === keys.LEFT) {
             if (current_station_index % grid_cols === 0) {
@@ -192,33 +234,39 @@ var home_page = (function() {
             moved = true;
         } else if (e.keyCode === keys.RIGHT) {
             current_station_index++;
-            if (current_station_index >= filtered_stations.length) {
-                current_station_index = filtered_stations.length - 1;
+            if (current_station_index >= totalStations) {
+                current_station_index = totalStations - 1;
             }
             moved = true;
         } else if (e.keyCode === keys.UP) {
             current_station_index -= grid_cols;
             if (current_station_index < 0) {
                 var currentCol = oldIndex % grid_cols;
-                var totalRows = Math.ceil(filtered_stations.length / grid_cols);
+                var totalRows = Math.ceil(totalStations / grid_cols);
                 var lastRowStart = (totalRows - 1) * grid_cols;
                 current_station_index = lastRowStart + currentCol;
-                if (current_station_index >= filtered_stations.length) {
-                    current_station_index = filtered_stations.length - 1;
+                if (current_station_index >= totalStations) {
+                    current_station_index = totalStations - 1;
                 }
             }
             moved = true;
         } else if (e.keyCode === keys.DOWN) {
             current_station_index += grid_cols;
-            if (current_station_index >= filtered_stations.length) {
+            if (current_station_index >= totalStations) {
                 current_station_index = oldIndex % grid_cols;
-                if (current_station_index >= filtered_stations.length) {
+                if (current_station_index >= totalStations) {
                     current_station_index = 0;
                 }
             }
             moved = true;
         } else if (e.keyCode === keys.ENTER) {
-            playStation(filtered_stations[current_station_index]);
+            var card = stationCards[current_station_index];
+            if (card) {
+                var idx = parseInt(card.getAttribute('data-index'));
+                if (idx < stations.length) {
+                    playStation(stations[idx]);
+                }
+            }
             return;
         }
         

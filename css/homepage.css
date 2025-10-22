@@ -285,7 +285,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 28px 72px;
+    padding: 28px 50px;
     border-radius: 20px;
     top: 316px;
     cursor: pointer;
@@ -304,13 +304,13 @@
 }
 
 .genre-1 { left: 236px; }
-.genre-2 { left: 445px; }
-.genre-3 { left: 664px; }
-.genre-4 { left: 916px; }
-.genre-5 { left: 1142px; }
-.genre-6 { left: 1394px; }
-.genre-7 { left: 1646px; }
-.genre-8 { left: 1872px; }
+.genre-2 { left: 410px; }
+.genre-3 { left: 590px; }
+.genre-4 { left: 800px; }
+.genre-5 { left: 980px; }
+.genre-6 { left: 1180px; }
+.genre-7 { left: 1400px; }
+.genre-8 { left: 1620px; }
 
 .see-more-text {
     position: absolute;

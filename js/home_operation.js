@@ -100,6 +100,12 @@ var home_page = (function() {
         current_menu_index = index;
         var menu = menu_items[index];
         active_view = menu;
+        
+        if (menu === 'genres') {
+            showPage('genres');
+            return;
+        }
+        
         updateFocus();
     }
     
@@ -204,6 +210,11 @@ var home_page = (function() {
             current_station_index = 0;
             moved = true;
         } else if (e.keyCode === keys.ENTER) {
+            var menu = menu_items[current_menu_index];
+            if (menu === 'genres') {
+                showPage('genres');
+                return;
+            }
             handleMenuClick(current_menu_index);
             focus_area = 'station';
             current_station_index = 0;

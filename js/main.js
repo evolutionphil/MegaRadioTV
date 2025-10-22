@@ -47,6 +47,8 @@ function routeKeyEvent(e) {
         splash_page.keyDown(e);
     } else if (current_route === 'home' && typeof home_page !== 'undefined') {
         home_page.keyDown(e);
+    } else if (current_route === 'genres' && typeof genres_page !== 'undefined') {
+        genres_page.handleKey(e.keyCode);
     } else if (current_route === 'player' && typeof player_page !== 'undefined') {
         player_page.keyDown(e);
     }
@@ -77,6 +79,7 @@ function showPage(pageName) {
         console.log('Checking page initialization for: ' + pageName);
         console.log('home_page defined:', typeof home_page !== 'undefined');
         console.log('splash_page defined:', typeof splash_page !== 'undefined');
+        console.log('genres_page defined:', typeof genres_page !== 'undefined');
         
         if (pageName === 'home' && typeof home_page !== 'undefined') {
             console.log('Initializing home page...');
@@ -84,6 +87,9 @@ function showPage(pageName) {
         } else if (pageName === 'splash' && typeof splash_page !== 'undefined') {
             console.log('Initializing splash page...');
             splash_page.init();
+        } else if (pageName === 'genres' && typeof genres_page !== 'undefined') {
+            console.log('Initializing genres page...');
+            genres_page.init();
         } else {
             console.log('ERROR: Could not initialize page ' + pageName);
         }
@@ -99,6 +105,8 @@ function handleBackButton() {
         if (platform === 'samsung' && typeof tizen !== 'undefined') {
             tizen.application.getCurrentApplication().exit();
         }
+    } else if (current_route === 'genres') {
+        showPage('home');
     } else if (current_route === 'player') {
         showPage('home');
     } else {

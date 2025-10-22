@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="css/splash.css"/>
     <link rel="stylesheet" href="css/homepage.css"/>
+    <link rel="stylesheet" href="css/genres.css"/>
     <link rel="stylesheet" href="css/responsive.css"/>
 </head>
 <body>
@@ -265,6 +266,120 @@
         </div>
     </div>
     
+    <div id="genres-page" class="page" style="display:none">
+        <div class="genres-container">
+            <div class="bg-hand-crowd">
+                <img src="images/bg_disco.png" alt="">
+            </div>
+            <div class="bg-gradient-genres"></div>
+
+            <div class="logo">
+                <div class="logo-icon"><img src="images/logo.png" alt=""></div>
+                <p class="logo-text"><span class="logo-bold">mega</span>radio</p>
+            </div>
+
+            <div class="location-selector">
+                <div class="location-content">
+                    <div class="location-flag"><img src="images/station_austria_1_1691_11039.png" alt=""></div>
+                    <p class="location-text">Austria</p>
+                    <div class="location-arrow">▼</div>
+                </div>
+            </div>
+
+            <div class="login-btn">
+                <p class="login-text">Login</p>
+            </div>
+
+            <p class="genres-title-main">Popular Genres</p>
+            <p class="genres-all-text">All</p>
+
+            <div class="genre-card" style="left: 237px; top: 309px;">
+                <p class="genre-name">Pop</p>
+                <p class="genre-stations">128 Stations</p>
+            </div>
+            <div class="genre-card" style="left: 644px; top: 309px;">
+                <p class="genre-name">Rock</p>
+                <p class="genre-stations">94 Stations</p>
+            </div>
+            <div class="genre-card" style="left: 1052px; top: 309px;">
+                <p class="genre-name">Hip Hop</p>
+                <p class="genre-stations">56 Stations</p>
+            </div>
+            <div class="genre-card" style="left: 1459px; top: 309px;">
+                <p class="genre-name">Jazz</p>
+                <p class="genre-stations">72 Stations</p>
+            </div>
+
+            <div class="genre-card" style="left: 237px; top: 467px;">
+                <p class="genre-name">Classical</p>
+                <p class="genre-stations">48 Stations</p>
+            </div>
+            <div class="genre-card" style="left: 644px; top: 467px;">
+                <p class="genre-name">Country</p>
+                <p class="genre-stations">85 Stations</p>
+            </div>
+            <div class="genre-card" style="left: 1052px; top: 467px;">
+                <p class="genre-name">Electronic</p>
+                <p class="genre-stations">112 Stations</p>
+            </div>
+            <div class="genre-card" style="left: 1459px; top: 467px;">
+                <p class="genre-name">R&B</p>
+                <p class="genre-stations">63 Stations</p>
+            </div>
+
+            <div class="genre-card" style="left: 237px; top: 737px;">
+                <p class="genre-name">Folk</p>
+                <p class="genre-stations">41 Stations</p>
+            </div>
+            <div class="genre-card" style="left: 644px; top: 737px;">
+                <p class="genre-name">Blues</p>
+                <p class="genre-stations">38 Stations</p>
+            </div>
+            <div class="genre-card" style="left: 1052px; top: 737px;">
+                <p class="genre-name">Reggae</p>
+                <p class="genre-stations">29 Stations</p>
+            </div>
+            <div class="genre-card" style="left: 1459px; top: 737px;">
+                <p class="genre-name">Metal</p>
+                <p class="genre-stations">67 Stations</p>
+            </div>
+
+            <div class="genre-card" style="left: 237px; top: 895px;">
+                <p class="genre-name">Latin</p>
+                <p class="genre-stations">91 Stations</p>
+            </div>
+            <div class="genre-card" style="left: 644px; top: 895px;">
+                <p class="genre-name">Soul</p>
+                <p class="genre-stations">52 Stations</p>
+            </div>
+            <div class="genre-card" style="left: 1052px; top: 895px;">
+                <p class="genre-name">Dance</p>
+                <p class="genre-stations">105 Stations</p>
+            </div>
+            <div class="genre-card" style="left: 1459px; top: 895px;">
+                <p class="genre-name">Indie</p>
+                <p class="genre-stations">78 Stations</p>
+            </div>
+
+            <div class="genre-card" style="left: 237px; top: 1055px;">
+                <p class="genre-name">Alternative</p>
+                <p class="genre-stations">86 Stations</p>
+            </div>
+            <div class="genre-card" style="left: 644px; top: 1055px;">
+                <p class="genre-name">Punk</p>
+                <p class="genre-stations">44 Stations</p>
+            </div>
+            <div class="genre-card" style="left: 1052px; top: 1055px;">
+                <p class="genre-name">World</p>
+                <p class="genre-stations">73 Stations</p>
+            </div>
+            <div class="genre-card" style="left: 1459px; top: 1055px;">
+                <p class="genre-name">News</p>
+                <p class="genre-stations">154 Stations</p>
+            </div>
+        </div>
+    </div>
+    
     <div id="player-page" class="page" style="display:none">
         <div class="container">
             <h1 class="title">Now Playing</h1>
@@ -289,6 +404,7 @@
     
     <script src="js/splash_operation.js"></script>
     <script src="js/home_operation.js"></script>
+    <script src="js/genres_operation.js"></script>
     
     <script>
         function updateTime() {

@@ -115,3 +115,21 @@ var player_page = {
         }
     }
 };
+
+// Add click handlers to similar radio cards on player page
+document.addEventListener('DOMContentLoaded', function() {
+    var similarRadioCards = document.querySelectorAll('#player-page .radio-card');
+    similarRadioCards.forEach(function(card) {
+        card.addEventListener('click', function() {
+            var station = {
+                name: card.querySelector('.radio-name')?.textContent || 'Unknown Station',
+                song: 'Now Playing',
+                logo: card.querySelector('.radio-logo img')?.src || 'images/def_image.jpg',
+                genre: card.querySelector('.radio-genre')?.textContent || 'Music',
+                tags: ['128kb', 'MP3', 'AT', 'Pop']
+            };
+            player_page.init(station);
+            window.scrollTo(0, 0);
+        });
+    });
+});

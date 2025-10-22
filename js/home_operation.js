@@ -314,12 +314,10 @@ var home_page = (function() {
     }
     
     function playStation(station) {
-        if (station && station.url) {
+        if (station) {
             current_station = station;
             saveToStorage('current_station', station);
-            showMessage('Playing: ' + station.name, 'info');
-        } else {
-            showMessage('No stream URL available', 'error');
+            showPage('player', station);
         }
     }
     
@@ -328,3 +326,29 @@ var home_page = (function() {
         keyDown: keyDown
     };
 })();
+
+// Add click handlers to static radio cards on page load
+document.addEventListener('DOMContentLoaded', function() {
+    var radioCards = document.querySelectorAll('#home-page .radio-card:not(.radio-card-seemore)');
+    radioCards.forEach(function(card) {
+        card.addEventListener('click', function() {
+            var station = {
+                name: card.querySelector('.radio-name')?.textContent || 'Unknown Station',
+                song: 'Now Playing',
+                logo: card.querySelector('.radio-logo img')?.src || 'images/def_image.jpg',
+                genre: card.querySelector('.radio-genre')?.textContent || 'Music',
+                tags: ['128kb', 'MP3', 'AT', 'Pop']
+            };
+            showPage('player', station);
+        });
+    });
+    
+    // Add click handlers to genre buttons
+    var genreButtons = document.querySelectorAll('#home-page .genre-btn');
+    genreButtons.forEach(function(btn, index) {
+        btn.addEventListener('click', function() {
+            var genreName = btn.querySelector('p')?.textContent || 'Pop';
+            showPage('genre-detail', genreName);
+        });
+    });
+});

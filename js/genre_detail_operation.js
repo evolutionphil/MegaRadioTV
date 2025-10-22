@@ -117,3 +117,20 @@ var genre_detail_page = {
         }
     }
 };
+
+// Add click handlers to station cards on genre detail page
+document.addEventListener('DOMContentLoaded', function() {
+    var radioCards = document.querySelectorAll('#genre-detail-page .radio-card');
+    radioCards.forEach(function(card) {
+        card.addEventListener('click', function() {
+            var station = {
+                name: card.querySelector('.radio-name')?.textContent || 'Unknown Station',
+                song: 'Now Playing',
+                logo: card.querySelector('.radio-logo img')?.src || 'images/def_image.jpg',
+                genre: card.querySelector('.radio-genre')?.textContent || 'Music',
+                tags: ['128kb', 'MP3', 'AT', 'Pop']
+            };
+            showPage('player', station);
+        });
+    });
+});

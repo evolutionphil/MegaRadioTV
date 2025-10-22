@@ -65,3 +65,18 @@ var genres_page = {
         }
     }
 };
+
+// Add click handlers to genre cards on page load
+document.addEventListener('DOMContentLoaded', function() {
+    var genreCards = document.querySelectorAll('#genres-page .genre-card');
+    var genreNames = ['Pop', 'Rock', 'Hip Hop', 'Jazz', 'Classical', 'Country', 'Electronic', 'R&B',
+                      'Folk', 'Blues', 'Reggae', 'Metal', 'Latin', 'Soul', 'Dance', 'Indie',
+                      'Alternative', 'Punk', 'World', 'News'];
+    
+    genreCards.forEach(function(card, index) {
+        card.addEventListener('click', function() {
+            var genreName = genreNames[index] || card.querySelector('.genre-name')?.textContent || 'Pop';
+            showPage('genre-detail', genreName);
+        });
+    });
+});

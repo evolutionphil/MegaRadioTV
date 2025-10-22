@@ -1,7 +1,8 @@
 .discover-nouser {
     position: relative;
     width: 1920px;
-    min-height: 1920px;
+    height: 1080px;
+    overflow: hidden;
     background: linear-gradient(156deg, rgb(70, 15, 40) 0%, rgb(14, 14, 14) 100%);
     margin: 0;
 }

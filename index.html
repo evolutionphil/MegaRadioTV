@@ -110,6 +110,7 @@
             <p class="section-title radios-title">Popular Radios</p>
             <p class="see-more-text see-more-radios">See More</p>
 
+            <div class="radios-container">
             <div class="radio-card" style="left: 236px; top: 539px;">
                 <div class="radio-logo"><img src="images/station_powerturk_tv_logosu_1_1691_10798.png" alt=""></div>
                 <p class="radio-name">Power Türk</p>
@@ -184,10 +185,12 @@
             <div class="radio-card radio-card-seemore" style="left: 1720px; top: 833px;">
                 <p class="seemore-text">See More</p>
             </div>
+            </div>
 
             <p class="section-title austria-title">More From Austria</p>
             <p class="see-more-text see-more-austria">See More</p>
 
+            <div class="radios-container">
             <div class="radio-card" style="left: 236px; top: 1255px;">
                 <div class="radio-logo"><img src="images/station_powerturk_tv_logosu_1_1691_10798.png" alt=""></div>
                 <p class="radio-name">Power Türk</p>
@@ -258,6 +261,7 @@
                 <div class="radio-logo"><img src="images/station_0b75jzrr_400x400_1_1691_10820.png" alt=""></div>
                 <p class="radio-name">Power Türk</p>
                 <p class="radio-genre">Türkçe Pop</p>
+            </div>
             </div>
         </div>
     </div>
@@ -415,8 +419,9 @@
                 </div>
             </div>
 
-            <p class="recently-played-title">Recently Played</p>
+            <p class="search-results-title">Search Results</p>
 
+            <div class="search-results-grid" id="search-results-grid">
             <div class="recently-played-grid">
                 <div class="radio-card" style="left: 1394px; top: 136px;">
                     <div class="radio-logo"><img src="images/station_powerturk_tv_logosu_1_1691_10798.png" alt=""></div>
@@ -448,6 +453,7 @@
                     <p class="radio-name">Rock Nation</p>
                     <p class="radio-genre">Rock</p>
                 </div>
+            </div>
             </div>
         </div>
     </div>
@@ -836,6 +842,30 @@
         
         // Setup handlers after a short delay to ensure DOM is ready
         setTimeout(setupClickHandlers, 500);
+        
+        // Setup search input handler
+        var searchInput = document.querySelector('#search-page .search-input');
+        if (searchInput) {
+            searchInput.addEventListener('input', function(e) {
+                var query = e.target.value;
+                if (query.length >= 2) {
+                    setTimeout(function() {
+                        if (typeof search_page !== 'undefined' && search_page.performSearch) {
+                            search_page.performSearch(query);
+                        }
+                    }, 300);
+                }
+            });
+            
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' || e.keyCode === 13) {
+                    var query = e.target.value;
+                    if (typeof search_page !== 'undefined' && search_page.performSearch) {
+                        search_page.performSearch(query);
+                    }
+                }
+            });
+        }
     </script>
 </body>
 </html>

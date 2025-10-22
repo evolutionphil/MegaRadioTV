@@ -290,13 +290,3 @@ var home_page = (function() {
         keyDown: keyDown
     };
 })();
-
-if (typeof window !== 'undefined') {
-    window.addEventListener('DOMContentLoaded', function() {
-        setTimeout(function() {
-            if (current_route === 'home') {
-                home_page.init();
-            }
-        }, 100);
-    });
-}

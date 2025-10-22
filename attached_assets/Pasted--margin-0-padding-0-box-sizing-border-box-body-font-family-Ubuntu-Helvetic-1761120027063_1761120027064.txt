@@ -1,0 +1,509 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Ubuntu', Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  background: #0e0e0e;
+}
+
+.discover-nouser {
+  position: relative;
+  width: 1920px;
+  min-height: 1920px;
+  background: linear-gradient(156deg, rgb(70, 15, 40) 0%, rgb(14, 14, 14) 100%);
+  margin: 0 auto;
+}
+
+/* Background Images */
+.bg-hand-crowd {
+  position: absolute;
+  height: 1292px;
+  left: -10px;
+  top: -523px;
+  width: 1939px;
+  pointer-events: none;
+}
+
+.bg-hand-crowd img {
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  object-position: 50% 50%;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+
+.bg-gradient {
+  position: absolute;
+  background: linear-gradient(to bottom, rgba(14, 14, 14, 0) 0.88%, rgba(14, 14, 14, 0) 0.88%, #0e0e0e 48.611%);
+  height: 1080px;
+  left: 0;
+  top: 0;
+  width: 1920px;
+}
+
+/* Left Menu / Sidebar */
+.left-menu {
+  position: absolute;
+  height: 638px;
+  left: 64px;
+  top: 242px;
+  width: 98px;
+}
+
+.nav-item {
+  position: absolute;
+  left: 0;
+  overflow: clip;
+  border-radius: 10px;
+  width: 98px;
+  height: 98px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.nav-item:nth-child(1) { top: 0; }
+.nav-item:nth-child(2) { top: 108px; }
+.nav-item:nth-child(3) { top: 216px; }
+.nav-item:nth-child(4) { top: 324px; }
+.nav-item:nth-child(5) { top: 432px; }
+.nav-item:nth-child(6) { top: 540px; }
+
+.nav-item-active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.nav-content {
+  position: absolute;
+  height: 61px;
+  left: 13px;
+  top: 19px;
+  width: 72px;
+}
+
+.nav-label {
+  position: absolute;
+  font-weight: 500;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 18px;
+  text-align: center;
+  color: white;
+  top: 40px;
+  white-space: nowrap;
+}
+
+.nav-icon {
+  position: absolute;
+  left: 20px;
+  width: 32px;
+  height: 32px;
+  top: 0;
+}
+
+.nav-icon img {
+  display: block;
+  max-width: none;
+  width: 100%;
+  height: 100%;
+}
+
+/* Records icon */
+.rec {
+  position: absolute;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  top: 0;
+}
+
+.rec-inner {
+  position: absolute;
+  background: white;
+  left: 5.33px;
+  border-radius: 10.667px;
+  width: 21.334px;
+  height: 21.334px;
+  top: 5.33px;
+}
+
+.rec-border {
+  position: absolute;
+  border: 2.667px solid white;
+  left: 0;
+  border-radius: 20.267px;
+  width: 32px;
+  height: 32px;
+  top: 0;
+}
+
+/* Logo */
+.logo {
+  position: absolute;
+  height: 57px;
+  left: 30px;
+  top: 64px;
+  width: 164.421px;
+}
+
+.logo-text {
+  position: absolute;
+  bottom: 0;
+  font-size: 27.029px;
+  font-weight: 400;
+  left: 18.67%;
+  right: 0;
+  color: white;
+  top: 46.16%;
+  white-space: pre-wrap;
+}
+
+.logo-bold {
+  font-weight: 700;
+}
+
+.logo-icon {
+  position: absolute;
+  bottom: 2.84%;
+  left: 0;
+  right: 65.2%;
+  top: 0;
+}
+
+.logo-icon img {
+  display: block;
+  max-width: none;
+  width: 100%;
+  height: 100%;
+}
+
+/* Top Right Controls */
+.location-selector {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.1);
+  height: 51px;
+  left: 1453px;
+  overflow: clip;
+  border-radius: 30px;
+  top: 67px;
+  width: 223px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.location-selector:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.location-content {
+  position: absolute;
+  height: 29px;
+  left: 15px;
+  top: 11px;
+  width: 193.684px;
+}
+
+.location-text {
+  position: absolute;
+  font-weight: 700;
+  left: 39.08px;
+  font-size: 24px;
+  color: white;
+  top: 1px;
+}
+
+.location-flag {
+  position: absolute;
+  left: 0;
+  width: 28.421px;
+  height: 28.421px;
+  top: 0;
+}
+
+.location-flag img {
+  position: absolute;
+  inset: 0;
+  max-width: none;
+  object-fit: cover;
+  object-position: 50% 50%;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+}
+
+.location-arrow {
+  position: absolute;
+  left: 170px;
+  top: 3.32px;
+  width: 23.684px;
+  height: 23.684px;
+  transform: rotate(270deg);
+}
+
+.location-arrow img {
+  display: block;
+  max-width: none;
+  width: 100%;
+  height: 100%;
+}
+
+.equalizer {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.1);
+  left: 1383px;
+  overflow: clip;
+  border-radius: 30px;
+  width: 51px;
+  height: 51px;
+  top: 67px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.equalizer:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.equ {
+  position: absolute;
+  height: 25px;
+  left: 13.75px;
+  overflow: clip;
+  top: 13px;
+  width: 23.75px;
+}
+
+.equ-bar-1 {
+  position: absolute;
+  background: white;
+  height: 25px;
+  left: 0;
+  border-radius: 10px;
+  top: 0;
+  width: 6.25px;
+}
+
+.equ-bar-2 {
+  position: absolute;
+  background: white;
+  height: 17.5px;
+  left: 8.75px;
+  border-radius: 10px;
+  top: 7.5px;
+  width: 6.25px;
+}
+
+.equ-bar-3 {
+  position: absolute;
+  background: white;
+  height: 21.25px;
+  left: 17.5px;
+  border-radius: 10px;
+  top: 3.75px;
+  width: 6.25px;
+}
+
+.login-btn {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.1);
+  height: 52px;
+  left: 1695px;
+  overflow: clip;
+  border-radius: 30px;
+  top: 66px;
+  width: 146px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.login-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.login-text {
+  position: absolute;
+  font-weight: 700;
+  left: 57.08px;
+  font-size: 24px;
+  color: white;
+  top: 12px;
+}
+
+.login-icon {
+  position: absolute;
+  left: 13px;
+  width: 34px;
+  height: 34px;
+  top: 9px;
+}
+
+.login-icon img {
+  display: block;
+  max-width: none;
+  width: 100%;
+  height: 100%;
+}
+
+/* Section Titles */
+.section-title {
+  position: absolute;
+  font-weight: 700;
+  left: 236px;
+  font-size: 32px;
+  color: white;
+}
+
+.genres-title {
+  top: 242px;
+}
+
+.radios-title {
+  top: 465px;
+}
+
+.austria-title {
+  top: 1181px;
+}
+
+/* Genre Buttons */
+.genre-btn {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: inset 1.1px 1.1px 12.1px 0px rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 72px;
+  border-radius: 20px;
+  top: 316px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.genre-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.genre-btn p {
+  font-weight: 500;
+  font-size: 22px;
+  text-align: center;
+  color: white;
+}
+
+.genre-1 { left: 236px; }
+.genre-2 { left: 445px; }
+.genre-3 { left: 664px; border: 5.5px solid #b4b4b4; }
+.genre-4 { left: 1394px; }
+.genre-5 { left: 916px; }
+.genre-6 { left: 1646px; }
+.genre-7 { left: 1142px; }
+.genre-8 { left: 1872px; }
+
+/* See More Text */
+.see-more-text {
+  position: absolute;
+  font-weight: 500;
+  font-size: 22px;
+  text-align: center;
+  color: white;
+  transform: translateX(-50%);
+}
+
+.see-more-radios {
+  left: 1792.5px;
+  top: 484px;
+}
+
+.see-more-austria {
+  left: 1792.5px;
+  top: 1186px;
+}
+
+/* Radio Cards */
+.radio-card {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.14);
+  height: 264px;
+  overflow: clip;
+  border-radius: 11px;
+  width: 200px;
+  box-shadow: inset 1.1px 1.1px 12.1px 0px rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.radio-card:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.radio-logo {
+  position: absolute;
+  background: white;
+  left: 34px;
+  overflow: clip;
+  border-radius: 6.6px;
+  width: 132px;
+  height: 132px;
+  top: 34px;
+}
+
+.radio-logo img {
+  position: absolute;
+  inset: 0;
+  max-w: none;
+  object-fit: cover;
+  object-position: 50% 50%;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+}
+
+.radio-name {
+  position: absolute;
+  font-weight: 500;
+  left: 102px;
+  font-size: 22px;
+  text-align: center;
+  color: white;
+  top: 187px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.radio-genre {
+  position: absolute;
+  font-weight: 300;
+  left: 103.1px;
+  font-size: 18px;
+  text-align: center;
+  color: white;
+  top: 218.2px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+/* See More Card */
+.radio-card-seemore {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seemore-text {
+  font-weight: 500;
+  font-size: 22px;
+  text-align: center;
+  color: white;
+}

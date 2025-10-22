@@ -1,377 +1,409 @@
-#home-page {
+.discover-nouser {
     position: relative;
     width: 1920px;
+    min-height: 1920px;
+    background: linear-gradient(156deg, rgb(70, 15, 40) 0%, rgb(14, 14, 14) 100%);
+    margin: 0 auto;
+}
+
+.bg-hand-crowd {
+    position: absolute;
+    height: 1292px;
+    left: -10px;
+    top: -523px;
+    width: 1939px;
+    pointer-events: none;
+}
+
+.bg-hand-crowd img {
+    position: absolute;
+    inset: 0;
+    object-fit: cover;
+    object-position: 50% 50%;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+}
+
+.bg-gradient {
+    position: absolute;
+    background: linear-gradient(to bottom, rgba(14, 14, 14, 0) 0.88%, rgba(14, 14, 14, 0) 0.88%, #0e0e0e 48.611%);
     height: 1080px;
-    overflow: hidden;
-    font-family: 'Ubuntu', sans-serif;
-}
-
-.home-bg {
-    position: absolute;
-    top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #c73184 0%, #7b2f7e 50%, #2d1b3d 100%);
-    z-index: 1;
-}
-
-.home-overlay {
-    position: absolute;
     top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('../images/bg_disco.png');
-    background-size: cover;
-    background-position: center bottom;
-    background-repeat: no-repeat;
-    opacity: 0.4;
-    z-index: 2;
+    width: 1920px;
 }
 
-.home-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    z-index: 3;
-    display: flex;
-    flex-direction: column;
-    padding: 40px 60px;
-}
-
-.home-top-bar {
+.left-menu {
     position: absolute;
-    top: 0;
+    height: 638px;
+    left: 64px;
+    top: 242px;
+    width: 98px;
+}
+
+.nav-item {
+    position: absolute;
     left: 0;
-    right: 0;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 50px;
-    z-index: 10;
+    overflow: clip;
+    border-radius: 10px;
+    width: 98px;
+    height: 98px;
+    cursor: pointer;
+    transition: background 0.2s;
 }
 
-.home-logo-area {
-    display: flex;
-    align-items: center;
+.nav-item:nth-child(1) { top: 0; }
+.nav-item:nth-child(2) { top: 108px; }
+.nav-item:nth-child(3) { top: 216px; }
+.nav-item:nth-child(4) { top: 324px; }
+.nav-item:nth-child(5) { top: 432px; }
+.nav-item:nth-child(6) { top: 540px; }
+
+.nav-item-active {
+    background: rgba(255, 255, 255, 0.2);
 }
 
-.home-logo {
-    width: 140px;
-    height: auto;
+.nav-item:hover {
+    background: rgba(255, 255, 255, 0.15);
 }
 
-.home-top-right {
-    display: flex;
-    align-items: center;
-    gap: 30px;
+.nav-content {
+    position: absolute;
+    height: 61px;
+    left: 13px;
+    top: 19px;
+    width: 72px;
 }
 
-.top-equalizer-icon {
+.nav-label {
+    position: absolute;
+    font-weight: 500;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18px;
+    text-align: center;
+    color: white;
+    top: 40px;
+    white-space: nowrap;
+}
+
+.nav-icon {
+    position: absolute;
+    left: 20px;
     width: 32px;
     height: 32px;
+    top: 0;
 }
 
-.country-selector {
+.nav-icon img {
+    display: block;
+    max-width: none;
+    width: 100%;
+    height: 100%;
+}
+
+.logo {
+    position: absolute;
+    height: 57px;
+    left: 30px;
+    top: 64px;
+    width: 164.421px;
+}
+
+.logo-text {
+    position: absolute;
+    bottom: 0;
+    font-size: 27.029px;
+    font-weight: 400;
+    left: 18.67%;
+    right: 0;
+    color: white;
+    top: 46.16%;
+    white-space: pre-wrap;
+}
+
+.logo-bold {
+    font-weight: 700;
+}
+
+.logo-icon {
+    position: absolute;
+    bottom: 2.84%;
+    left: 0;
+    right: 65.2%;
+    top: 0;
+}
+
+.logo-icon img {
+    display: block;
+    max-width: none;
+    width: 100%;
+    height: 100%;
+}
+
+.location-selector {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+    height: 51px;
+    left: 1453px;
+    overflow: clip;
+    border-radius: 30px;
+    top: 67px;
+    width: 223px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.location-selector:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.location-content {
+    position: absolute;
+    height: 29px;
+    left: 15px;
+    top: 11px;
+    width: 193.684px;
+}
+
+.location-text {
+    position: absolute;
+    font-weight: 700;
+    left: 39.08px;
+    font-size: 24px;
+    color: white;
+    top: 1px;
+}
+
+.location-flag {
+    position: absolute;
+    left: 0;
+    width: 28.421px;
+    height: 28.421px;
+    top: 0;
+}
+
+.location-flag img {
+    position: absolute;
+    inset: 0;
+    max-width: none;
+    object-fit: cover;
+    object-position: 50% 50%;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+}
+
+.location-arrow {
+    position: absolute;
+    left: 170px;
+    top: 3.32px;
+    width: 23.684px;
+    height: 23.684px;
+    font-size: 18px;
+    color: white;
+    text-align: center;
+}
+
+.equalizer {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+    left: 1383px;
+    overflow: clip;
+    border-radius: 30px;
+    width: 51px;
+    height: 51px;
+    top: 67px;
+    cursor: pointer;
+    transition: background 0.2s;
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: center;
+}
+
+.equalizer:hover {
     background: rgba(255, 255, 255, 0.15);
-    border-radius: 25px;
-    padding: 8px 20px;
-    cursor: pointer;
-    transition: all 0.3s ease;
 }
 
-.country-selector:hover {
-    background: rgba(255, 255, 255, 0.25);
-}
-
-.country-flag {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-}
-
-.country-selector span {
-    font-family: 'Ubuntu', sans-serif;
-    font-size: 16px;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 1);
-}
-
-.dropdown-arrow {
-    font-size: 12px;
-    opacity: 0.8;
+.equ-icon {
+    width: 28px;
+    height: 28px;
 }
 
 .login-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    border-radius: 25px;
-    padding: 10px 24px;
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+    height: 52px;
+    left: 1695px;
+    overflow: clip;
+    border-radius: 30px;
+    top: 66px;
+    width: 146px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background 0.2s;
 }
 
 .login-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.15);
 }
 
-.login-btn span {
-    font-family: 'Ubuntu', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 1);
-}
-
-.home-sidebar {
+.login-text {
     position: absolute;
-    left: 50px;
-    top: 120px;
-    width: 98px;
-    height: auto;
-    z-index: 10;
-}
-
-.menu-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.menu-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 98px;
-    height: 98px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border-radius: 11px;
-    background: rgba(255, 255, 255, 1);
-}
-
-.menu-icon {
-    width: 28px;
-    height: 28px;
-    margin-bottom: 6px;
-    opacity: 0.7;
-    transition: all 0.3s ease;
-}
-
-.menu-item span {
-    font-family: 'Ubuntu', sans-serif;
-    font-size: 18px;
-    font-weight: 500;
-    color: rgba(13, 13, 13, 1);
-    text-align: center;
-    transition: all 0.3s ease;
-}
-
-.menu-item.active .menu-icon,
-.menu-item:hover .menu-icon {
-    opacity: 1;
-}
-
-.menu-item.active span,
-.menu-item:hover span {
-    color: #000000;
-    font-weight: 600;
-}
-
-.menu-item.active {
-    background: rgba(230, 230, 230, 1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.home-main {
-    margin-left: 190px;
-    margin-top: 60px;
-    flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding-right: 40px;
-}
-
-.content-section {
-    margin-bottom: 60px;
-}
-
-.section-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 30px;
+    font-weight: 700;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    color: white;
+    top: 12px;
 }
 
 .section-title {
-    font-family: 'Ubuntu', sans-serif;
-    font-size: 32px;
+    position: absolute;
     font-weight: 700;
-    color: rgba(255, 255, 255, 1);
-    margin: 0;
+    left: 236px;
+    font-size: 32px;
+    color: white;
 }
 
-.section-icon {
-    width: 40px;
-    height: 40px;
+.genres-title {
+    top: 242px;
 }
 
-.see-more {
-    font-family: 'Ubuntu', sans-serif;
-    font-size: 22px;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.9);
-    text-decoration: none;
-    transition: all 0.3s ease;
+.radios-title {
+    top: 465px;
 }
 
-.see-more:hover {
-    color: rgba(255, 255, 255, 1);
-    text-decoration: underline;
-}
-
-.genre-buttons {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
+.austria-title {
+    top: 1181px;
 }
 
 .genre-btn {
-    font-family: 'Ubuntu', sans-serif;
-    font-size: 18px;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.9);
-    background: rgba(60, 40, 60, 0.6);
-    border: 2px solid rgba(255, 255, 255, 0.4);
-    border-radius: 25px;
-    padding: 12px 32px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-}
-
-.genre-btn:hover,
-.genre-btn.active {
-    background: rgba(80, 50, 80, 0.8);
-    border-color: rgba(255, 255, 255, 0.7);
-    color: rgba(255, 255, 255, 1);
-    transform: translateY(-2px);
-}
-
-.station-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 200px);
-    gap: 30px;
-    padding: 20px 0;
-    justify-content: start;
-}
-
-.station-card {
-    width: 200px;
-    height: 264px;
-    background: rgba(45, 45, 50, 0.9);
-    border-radius: 11px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    position: absolute;
+    background: rgba(255, 255, 255, 0.14);
+    box-shadow: inset 1.1px 1.1px 12.1px 0px rgba(255, 255, 255, 0.12);
     display: flex;
-    flex-direction: column;
     align-items: center;
-    padding: 20px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    justify-content: center;
+    padding: 28px 72px;
+    border-radius: 20px;
+    top: 316px;
+    cursor: pointer;
+    transition: background 0.2s;
 }
 
-.station-card.active,
-.station-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 24px rgba(255, 255, 255, 0.2);
+.genre-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
 }
 
-.station-logo {
+.genre-btn p {
+    font-weight: 500;
+    font-size: 22px;
+    text-align: center;
+    color: white;
+}
+
+.genre-1 { left: 236px; }
+.genre-2 { left: 445px; }
+.genre-3 { left: 664px; }
+.genre-4 { left: 916px; }
+.genre-5 { left: 1142px; }
+.genre-6 { left: 1394px; }
+.genre-7 { left: 1646px; }
+.genre-8 { left: 1872px; }
+
+.see-more-text {
+    position: absolute;
+    font-weight: 500;
+    font-size: 22px;
+    text-align: center;
+    color: white;
+    transform: translateX(-50%);
+    cursor: pointer;
+}
+
+.see-more-radios {
+    left: 1792.5px;
+    top: 484px;
+}
+
+.see-more-austria {
+    left: 1792.5px;
+    top: 1186px;
+}
+
+.radio-card {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.14);
+    height: 264px;
+    overflow: clip;
+    border-radius: 11px;
+    width: 200px;
+    box-shadow: inset 1.1px 1.1px 12.1px 0px rgba(255, 255, 255, 0.12);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.radio-card:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-4px);
+}
+
+.radio-logo {
+    position: absolute;
+    background: white;
+    left: 34px;
+    overflow: clip;
+    border-radius: 6.6px;
     width: 132px;
     height: 132px;
-    object-fit: contain;
-    margin-bottom: 20px;
-    border-radius: 8px;
+    top: 34px;
 }
 
-.station-name {
-    font-family: 'Ubuntu', sans-serif;
-    font-size: 18px;
-    font-weight: 300;
-    color: rgba(255, 255, 255, 1);
-    text-align: center;
-    margin-bottom: 6px;
+.radio-logo img {
+    position: absolute;
+    inset: 0;
+    max-width: none;
+    object-fit: cover;
+    object-position: 50% 50%;
+    pointer-events: none;
     width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    height: 100%;
+}
+
+.radio-name {
+    position: absolute;
+    font-weight: 500;
+    left: 102px;
+    font-size: 22px;
+    text-align: center;
+    color: white;
+    top: 187px;
+    transform: translateX(-50%);
     white-space: nowrap;
 }
 
-.station-category {
-    font-family: 'Ubuntu', sans-serif;
-    font-size: 18px;
+.radio-genre {
+    position: absolute;
     font-weight: 300;
-    color: rgba(255, 255, 255, 0.8);
+    left: 103.1px;
+    font-size: 18px;
     text-align: center;
-    width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    color: white;
+    top: 218.2px;
+    transform: translateX(-50%);
     white-space: nowrap;
 }
 
-@media (max-width: 1366px) {
-    .station-grid {
-        grid-template-columns: repeat(6, 180px);
-        gap: 25px;
-    }
-    
-    .station-card {
-        width: 180px;
-        height: 240px;
-    }
-    
-    .station-logo {
-        width: 120px;
-        height: 120px;
-    }
+.radio-card-seemore {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-@media (max-width: 1024px) {
-    .home-main {
-        margin-left: 150px;
-    }
-    
-    .station-grid {
-        grid-template-columns: repeat(6, 160px);
-        gap: 20px;
-    }
-    
-    .station-card {
-        width: 160px;
-        height: 220px;
-        padding: 15px;
-    }
-    
-    .station-logo {
-        width: 100px;
-        height: 100px;
-    }
-    
-    .station-name {
-        font-size: 18px;
-    }
-    
-    .station-category {
-        font-size: 16px;
-    }
+.seemore-text {
+    font-weight: 500;
+    font-size: 22px;
+    text-align: center;
+    color: white;
 }

@@ -20,8 +20,8 @@ window.onload = function() {
 function init() {
     console.log('init() called - platform: ' + platform);
     
-    // Skip splash for testing - go directly to home
-    showPage('home');
+    // Start with splash screen
+    showPage('splash');
     
     // Setup key handlers
     document.addEventListener('keydown', function(e) {
@@ -72,6 +72,21 @@ function showPage(pageName) {
     if (page) {
         page.style.display = 'block';
         current_route = pageName;
+        
+        // Initialize the page after showing it
+        console.log('Checking page initialization for: ' + pageName);
+        console.log('home_page defined:', typeof home_page !== 'undefined');
+        console.log('splash_page defined:', typeof splash_page !== 'undefined');
+        
+        if (pageName === 'home' && typeof home_page !== 'undefined') {
+            console.log('Initializing home page...');
+            home_page.init();
+        } else if (pageName === 'splash' && typeof splash_page !== 'undefined') {
+            console.log('Initializing splash page...');
+            splash_page.init();
+        } else {
+            console.log('ERROR: Could not initialize page ' + pageName);
+        }
     }
 }
 

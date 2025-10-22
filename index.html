@@ -33,90 +33,230 @@
     </div>
     
     <div id="home-page" class="page" style="display:none">
-        <div class="home-bg"></div>
-        <div class="home-overlay"></div>
-        
-        <div class="home-container">
-            <div class="home-top-bar">
-                <div class="home-logo-area">
-                    <img src="images/logo.png" alt="Mega Radio" class="home-logo">
-                </div>
-                <div class="home-top-right">
-                    <img src="images/icon_equalizer.png" alt="Equalizer" class="top-equalizer-icon">
-                    <div class="country-selector">
-                        <img src="images/station_austria_1_1691_11039.png" alt="Austria" class="country-flag">
-                        <span>Austria</span>
-                        <span class="dropdown-arrow">▼</span>
+        <div class="discover-nouser">
+            <div class="bg-hand-crowd">
+                <img src="images/bg_disco.png" alt="">
+            </div>
+            <div class="bg-gradient"></div>
+
+            <nav class="left-menu">
+                <div class="nav-item nav-item-active" data-menu="discover">
+                    <div class="nav-content">
+                        <div class="nav-icon"><img src="images/icon_radio.png" alt=""></div>
+                        <p class="nav-label">Discover</p>
                     </div>
-                    <button class="login-btn">
-                        <span>Login</span>
-                    </button>
+                </div>
+                <div class="nav-item" data-menu="genres">
+                    <div class="nav-content">
+                        <div class="nav-icon"><img src="images/icon_musicnote.png" alt=""></div>
+                        <p class="nav-label">Genres</p>
+                    </div>
+                </div>
+                <div class="nav-item" data-menu="search">
+                    <div class="nav-content">
+                        <div class="nav-icon"><img src="images/icon_search.png" alt=""></div>
+                        <p class="nav-label">Search</p>
+                    </div>
+                </div>
+                <div class="nav-item" data-menu="favorites">
+                    <div class="nav-content">
+                        <div class="nav-icon"><img src="images/icon_heart.png" alt=""></div>
+                        <p class="nav-label">Favorites</p>
+                    </div>
+                </div>
+                <div class="nav-item" data-menu="records">
+                    <div class="nav-content">
+                        <div class="nav-icon"><img src="images/icon_record.png" alt=""></div>
+                        <p class="nav-label">Records</p>
+                    </div>
+                </div>
+                <div class="nav-item" data-menu="settings">
+                    <div class="nav-content">
+                        <div class="nav-icon"><img src="images/icon_settings.png" alt=""></div>
+                        <p class="nav-label">Settings</p>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="logo">
+                <div class="logo-icon"><img src="images/logo.png" alt=""></div>
+                <p class="logo-text"><span class="logo-bold">mega</span>radio</p>
+            </div>
+
+            <div class="location-selector">
+                <div class="location-content">
+                    <div class="location-flag"><img src="images/station_austria_1_1691_11039.png" alt=""></div>
+                    <p class="location-text">Austria</p>
+                    <div class="location-arrow">▼</div>
                 </div>
             </div>
-            
-            <nav class="home-sidebar">
-                <ul class="menu-list">
-                    <li class="menu-item active" data-menu="discover">
-                        <img src="images/icon_radio.png" alt="Discover" class="menu-icon">
-                        <span>Discover</span>
-                    </li>
-                    <li class="menu-item" data-menu="genres">
-                        <img src="images/icon_musicnote.png" alt="Genres" class="menu-icon">
-                        <span>Genres</span>
-                    </li>
-                    <li class="menu-item" data-menu="search">
-                        <img src="images/icon_search.png" alt="Search" class="menu-icon">
-                        <span>Search</span>
-                    </li>
-                    <li class="menu-item" data-menu="favorites">
-                        <img src="images/icon_heart.png" alt="Favorites" class="menu-icon">
-                        <span>Favorites</span>
-                    </li>
-                    <li class="menu-item" data-menu="records">
-                        <img src="images/icon_record.png" alt="Records" class="menu-icon">
-                        <span>Records</span>
-                    </li>
-                    <li class="menu-item" data-menu="settings">
-                        <img src="images/icon_settings.png" alt="Settings" class="menu-icon">
-                        <span>Settings</span>
-                    </li>
-                </ul>
-            </nav>
-            
-            <main class="home-main">
-                
-                <section class="content-section">
-                    <div class="section-header">
-                        <h2 class="section-title">Popular Genres</h2>
-                        <img src="images/icon_equalizer.png" alt="" class="section-icon">
-                    </div>
-                    <div class="genre-buttons">
-                        <button class="genre-btn active">Pop</button>
-                        <button class="genre-btn">Rock</button>
-                        <button class="genre-btn">Hip Hop</button>
-                        <button class="genre-btn">News</button>
-                        <button class="genre-btn">Country</button>
-                    </div>
-                </section>
 
-                <section class="content-section">
-                    <div class="section-header">
-                        <h2 class="section-title">Popular Radios</h2>
-                        <a href="#" class="see-more">See More</a>
-                    </div>
-                    <div class="station-grid" id="popular-radios-grid">
-                    </div>
-                </section>
+            <div class="equalizer">
+                <img src="images/icon_equalizer.png" alt="" class="equ-icon">
+            </div>
 
-                <section class="content-section">
-                    <div class="section-header">
-                        <h2 class="section-title">More From Austria</h2>
-                        <a href="#" class="see-more">See More</a>
-                    </div>
-                    <div class="station-grid" id="austria-stations-grid">
-                    </div>
-                </section>
-            </main>
+            <div class="login-btn">
+                <p class="login-text">Login</p>
+            </div>
+
+            <p class="section-title genres-title">Popular Genres</p>
+            
+            <div class="genre-btn genre-1"><p>Pop</p></div>
+            <div class="genre-btn genre-2"><p>Rock</p></div>
+            <div class="genre-btn genre-3"><p>Hip Hop</p></div>
+            <div class="genre-btn genre-4"><p>News</p></div>
+            <div class="genre-btn genre-5"><p>Country</p></div>
+            <div class="genre-btn genre-6"><p>Hip Hop</p></div>
+            <div class="genre-btn genre-7"><p>News</p></div>
+            <div class="genre-btn genre-8"><p>Country</p></div>
+
+            <p class="section-title radios-title">Popular Radios</p>
+            <p class="see-more-text see-more-radios">See More</p>
+
+            <div class="radio-card" style="left: 236px; top: 539px;">
+                <div class="radio-logo"><img src="images/station_powertürk_tv_logosu_1_1691_10798.png" alt=""></div>
+                <p class="radio-name">Power Türk</p>
+                <p class="radio-genre">Türkçe Pop</p>
+            </div>
+            <div class="radio-card" style="left: 466px; top: 539px;">
+                <div class="radio-logo"><img src="images/station_0b75jzrr_400x400_1_1691_10820.png" alt=""></div>
+                <p class="radio-name">Power Türk</p>
+                <p class="radio-genre">Türkçe Pop</p>
+            </div>
+            <div class="radio-card" style="left: 696px; top: 539px;">
+                <div class="radio-logo"><img src="images/station_alem_fm_1_1691_10876.png" alt=""></div>
+                <p class="radio-name">Power Türk</p>
+                <p class="radio-genre">Türkçe Pop</p>
+            </div>
+            <div class="radio-card" style="left: 926px; top: 539px;">
+                <div class="radio-logo"><img src="images/station_android_default_logo_1_1691_10844.png" alt=""></div>
+                <p class="radio-name">Power Türk</p>
+                <p class="radio-genre">Türkçe Pop</p>
+            </div>
+            <div class="radio-card" style="left: 1156px; top: 539px;">
+                <div class="radio-logo"><img src="images/station_meta_image_1_1_1691_10934.png" alt=""></div>
+                <p class="radio-name">Power Türk</p>
+                <p class="radio-genre">Türkçe Pop</p>
+            </div>
+            <div class="radio-card" style="left: 1386px; top: 539px;">
+                <div class="radio-logo"><img src="images/station_alem_fm_1_1691_10876.png" alt=""></div>
+                <p class="radio-name">Power Türk</p>
+                <p class="radio-genre">Türkçe Pop</p>
+            </div>
+            <div class="radio-card" style="left: 1616px; top: 539px;">
+                <div class="radio-logo"><img src="images/station_0b75jzrr_400x400_1_1691_10820.png" alt=""></div>
+                <p class="radio-name">Power Türk</p>
+                <p class="radio-genre">Türkçe Pop</p>
+            </div>
+
+            <div class="radio-card" style="left: 236px; top: 833px;">
+                <div class="radio-logo"><img src="images/station_alem_fm_1_1691_10876.png" alt=""></div>
+                <p class="radio-name">Power Türk</p>
+                <p class="radio-genre">Türkçe Pop</p>
+            </div>
+            <div class="radio-card" style="left: 466px; top: 833px;">
+                <div class="radio-logo"><img src="images/station_android_default_logo_1_1691_10844.png" alt=""></div>
+                <p class="radio-name">Power Türk</p>
+                <p class="radio-genre">Türkçe Pop</p>
+            </div>
+            <div class="radio-card" style="left: 696px; top: 833px;">
+                <div class="radio-logo"><img src="images/station_meta_image_1_1_1691_10934.png" alt=""></div>
+                <p class="radio-name">Power Türk</p>
+                <p class="radio-genre">Türkçe Pop</p>
+            </div>
+            <div class="radio-card" style="left: 926px; top: 833px;">
+                <div class="radio-logo"><img src="images/station_alem_fm_1_1691_10876.png" alt=""></div>
+                <p class="radio-name">Power Türk</p>
+                <p class="radio-genre">Türkçe Pop</p>
+            </div>
+            <div class="radio-card" style="left: 1156px; top: 833px;">
+                <div class="radio-logo"><img src="images/station_0b75jzrr_400x400_1_1691_10820.png" alt=""></div>
+                <p class="radio-name">Power Türk</p>
+                <p class="radio-genre">Türkçe Pop</p>
+            </div>
+            <div class="radio-card" style="left: 1386px; top: 833px;">
+                <div class="radio-logo"><img src="images/station_0b75jzrr_400x400_1_1691_10820.png" alt=""></div>
+                <p class="radio-name">Power Türk</p>
+                <p class="radio-genre">Türkçe Pop</p>
+            </div>
+            <div class="radio-card radio-card-seemore" style="left: 1616px; top: 833px;">
+                <p class="seemore-text">See More</p>
+            </div>
+
+            <p class="section-title austria-title">More From Austria</p>
+            <p class="see-more-text see-more-austria">See More</p>
+
+            <div class="radio-card" style="left: 236px; top: 1255px;">
+                <div class="radio-logo"><img src="images/station_powertürk_tv_logosu_1_1691_10798.png" alt=""></div>
+                <p class="radio-name">Power Türk</p>
+                <p class="radio-genre">Türkçe Pop</p>
+            </div>
+            <div class="radio-card" style="left: 466px; top: 1255px;">
+                <div class="radio-logo"><img src="images/station_0b75jzrr_400x400_1_1691_10820.png" alt=""></div>
+                <p class="radio-name">Power Türk</p>
+                <p class="radio-genre">Türkçe Pop</p>
+            </div>
+            <div class="radio-card" style="left: 696px; top: 1255px;">
+                <div class="radio-logo"><img src="images/station_alem_fm_1_1691_10876.png" alt=""></div>
+                <p class="radio-name">Power Türk</p>
+                <p class="radio-genre">Türkçe Pop</p>
+            </div>
+            <div class="radio-card" style="left: 926px; top: 1255px;">
+                <div class="radio-logo"><img src="images/station_android_default_logo_1_1691_10844.png" alt=""></div>
+                <p class="radio-name">Power Türk</p>
+                <p class="radio-genre">Türkçe Pop</p>
+            </div>
+            <div class="radio-card" style="left: 1156px; top: 1255px;">
+                <div class="radio-logo"><img src="images/station_meta_image_1_1_1691_10934.png" alt=""></div>
+                <p class="radio-name">Power Türk</p>
+                <p class="radio-genre">Türkçe Pop</p>
+            </div>
+            <div class="radio-card" style="left: 1386px; top: 1255px;">
+                <div class="radio-logo"><img src="images/station_alem_fm_1_1691_10876.png" alt=""></div>
+                <p class="radio-name">Power Türk</p>
+                <p class="radio-genre">Türkçe Pop</p>
+            </div>
+            <div class="radio-card" style="left: 1616px; top: 1255px;">
+                <div class="radio-logo"><img src="images/station_0b75jzrr_400x400_1_1691_10820.png" alt=""></div>
+                <p class="radio-name">Power Türk</p>
+                <p class="radio-genre">Türkçe Pop</p>
+            </div>
+
+            <div class="radio-card" style="left: 236px; top: 1549px;">
+                <div class="radio-logo"><img src="images/station_powertürk_tv_logosu_1_1691_10798.png" alt=""></div>
+                <p class="radio-name">Power Türk</p>
+                <p class="radio-genre">Türkçe Pop</p>
+            </div>
+            <div class="radio-card" style="left: 466px; top: 1549px;">
+                <div class="radio-logo"><img src="images/station_0b75jzrr_400x400_1_1691_10820.png" alt=""></div>
+                <p class="radio-name">Power Türk</p>
+                <p class="radio-genre">Türkçe Pop</p>
+            </div>
+            <div class="radio-card" style="left: 696px; top: 1549px;">
+                <div class="radio-logo"><img src="images/station_alem_fm_1_1691_10876.png" alt=""></div>
+                <p class="radio-name">Power Türk</p>
+                <p class="radio-genre">Türkçe Pop</p>
+            </div>
+            <div class="radio-card" style="left: 926px; top: 1549px;">
+                <div class="radio-logo"><img src="images/station_android_default_logo_1_1691_10844.png" alt=""></div>
+                <p class="radio-name">Power Türk</p>
+                <p class="radio-genre">Türkçe Pop</p>
+            </div>
+            <div class="radio-card" style="left: 1156px; top: 1549px;">
+                <div class="radio-logo"><img src="images/station_meta_image_1_1_1691_10934.png" alt=""></div>
+                <p class="radio-name">Power Türk</p>
+                <p class="radio-genre">Türkçe Pop</p>
+            </div>
+            <div class="radio-card" style="left: 1386px; top: 1549px;">
+                <div class="radio-logo"><img src="images/station_alem_fm_1_1691_10876.png" alt=""></div>
+                <p class="radio-name">Power Türk</p>
+                <p class="radio-genre">Türkçe Pop</p>
+            </div>
+            <div class="radio-card" style="left: 1616px; top: 1549px;">
+                <div class="radio-logo"><img src="images/station_0b75jzrr_400x400_1_1691_10820.png" alt=""></div>
+                <p class="radio-name">Power Türk</p>
+                <p class="radio-genre">Türkçe Pop</p>
+            </div>
         </div>
     </div>
     

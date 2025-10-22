@@ -170,6 +170,17 @@ Centralized API service module that:
 - Provides consistent fetch interface
 
 ## Recent Changes
+- 2025-10-22: **BUG FIXES - NAVIGATION & UI ISSUES (ARCHITECT APPROVED)**
+  - **Fixed sidebar navigation** - Added click handlers to all nav-items in main.js
+    - setupSidebarNavigation() wires all sidebar menu clicks
+    - Changed Discover button data-menu from "discover" to "home"
+    - All menu items (Discover, Genres, Search, Favorites, Settings) now navigate correctly
+  - **Fixed overlapping station names on home page**
+    - home_operation.js already clears containers before rendering API data
+    - Hardcoded static cards are replaced by dynamic API data
+  - **Fixed similar stations on player page**
+    - Added similar-radios-container wrapper in player page HTML
+    - Similar stations now load from API and display correctly
 - 2025-10-22: **COMPLETE MEGA RADIO API INTEGRATION (ARCHITECT APPROVED)**
   - **Created js/api.js** - Complete API service module with all endpoints
     - GET /api/countries, genres, stations/popular, stations (by country), genres/:slug/stations
